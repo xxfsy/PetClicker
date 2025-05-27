@@ -1,6 +1,6 @@
-using UnityEngine;
-
-public class ViewLogic : MonoBehaviour
+public class ViewLogic : BaseLogic
 {
     private PresenterLogic _presenterLogic;
+
+    private ViewsController _viewsController;
 }
