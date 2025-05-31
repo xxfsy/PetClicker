@@ -1,4 +1,6 @@
-public interface IClickableModel 
+public interface IClickableModel
 {
-    public void UpdateMoneyData(int newValue);
+    public int MoneyValue { get; }
+
+    public void SetMoneyValue(int newValue);
 }

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ClickView : BaseView, IClickableView
 {
@@ -10,13 +11,25 @@ public class ClickView : BaseView, IClickableView
 
     [SerializeField] private TextMeshPro _moneyText;
 
+    [SerializeField] private Button _clickerButton;
+
+    private void OnEnable()
+    {
+        _clickerButton.onClick.AddListener(OnClickerClicked);
+    }
+
+    private void OnDisable()
+    {
+        _clickerButton.onClick.RemoveListener(OnClickerClicked);
+    }
+
     public void OnClickerClicked()
     {
         _clickablePresenter?.HandleClick();
     }
 
-    public void UpdateUIAfterClick(string newValue)
+    public void DisplayClickResult(string newValue)
     {
-        throw new System.NotImplementedException();
+        _moneyText.SetText(newValue);
     }
 }
