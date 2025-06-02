@@ -1,4 +1,4 @@
-public abstract class BaseModel : IControllable
+public abstract class BaseModel 
 {
     protected BaseView _view;
 

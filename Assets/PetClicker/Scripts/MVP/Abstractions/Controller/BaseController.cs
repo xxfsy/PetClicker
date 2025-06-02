@@ -1,10 +1,19 @@
 using System.Collections.Generic;
 
-public abstract class BaseController<T> where T : IControllable
+public abstract class BaseController
 {
-    // TODO: finish this class 
+    protected BaseModel _model { get; private set; }
 
-    protected readonly List<T> components = new(); // нужно ли подумать еще?????? мб сделать абстрактным свойством хз подумать еще короче. нужно как-то сделать абстрактную коллекцию и сделать ее закрытой
+    protected BaseView _view { get; private set; }
 
-    public abstract void InitAll();
+    protected BasePresenter _presenter { get; private set; }
+
+    public BaseController(BaseModel model, BaseView view, BasePresenter presenter)
+    {
+        _model = model;
+        _view = view;
+        _presenter = presenter;
+    }
+
+    //public abstract void InitLayers(); // подумать сделать абстрактным или нет, если нет то надо будет делать проверку то что поля не пустые либо через ?. делать
 }
