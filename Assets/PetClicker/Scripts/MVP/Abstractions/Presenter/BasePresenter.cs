@@ -1,9 +1,9 @@
 public abstract class BasePresenter 
 {
-    protected BaseModel _model;
+    protected BaseModel model;
 
-    public BasePresenter(BaseModel model)
+    public void Initialize(BaseModel model)
     {
-        _model = model;
+        this.model = model;
     }
 }

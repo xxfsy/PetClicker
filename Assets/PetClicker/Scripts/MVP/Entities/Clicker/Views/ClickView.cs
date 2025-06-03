@@ -7,12 +7,12 @@ public class ClickView : BaseView, IClickableView, IUsingSharedModel
     // TODO: сделать какой-то колбэк или подумать как прокинуть какие действия надо сделать чтобы обновить ui. Хотя мб текущая строка норм, ведь это не ответственность модели, решать какой колбэк
     // кидать вьюшке, она просто передает значение, а вьюшка сама решает что делать со значением. Тогда да, все норм, оcтавить строку. Тогда доделать обновление текста
 
-    private IClickablePresenter _clickablePresenter => _presenter as IClickablePresenter;
+    private IClickablePresenter _clickablePresenter => presenter as IClickablePresenter;
 
     private SharedModel _moneySharedModel;
 
-    [SerializeField] private TextMeshPro _textForClickData;
-    [SerializeField] private TextMeshPro _moneyText;
+    [SerializeField] private TextMeshProUGUI _textForClickData;
+    [SerializeField] private TextMeshProUGUI _moneyText;
 
     [SerializeField] private Button _clickerButton;
 
@@ -20,7 +20,7 @@ public class ClickView : BaseView, IClickableView, IUsingSharedModel
     {
         _clickerButton.onClick.AddListener(OnClickerClicked);
 
-        SubscribeToSharedModel();
+        if(_moneySharedModel != null) SubscribeToSharedModel();
     }
 
     private void OnDisable()
@@ -43,6 +43,8 @@ public class ClickView : BaseView, IClickableView, IUsingSharedModel
     public void SetSharedModel(SharedModel sharedModel)
     {
         _moneySharedModel = sharedModel;
+
+        SubscribeToSharedModel();
     }
 
     public void SubscribeToSharedModel()

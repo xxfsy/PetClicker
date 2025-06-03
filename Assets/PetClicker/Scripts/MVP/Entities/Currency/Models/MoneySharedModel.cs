@@ -1,6 +1,6 @@
 using System;
 
-public class MoneyModel : SharedModel, ICurrencySharedModel
+public class MoneySharedModel : SharedModel, ICurrencySharedModel
 {
     public int MoneyValue { get; private set; }
 

@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public abstract class BaseView : MonoBehaviour // мб удалить или оставить монобех ведь вью будет работать с UI unity?
+public abstract class BaseView : MonoBehaviour 
 {
-    protected BasePresenter _presenter;
+    protected BasePresenter presenter;
 
     public void Initialize(BasePresenter presenter)
     {
-        _presenter = presenter;
+        this.presenter = presenter;
     }
 }

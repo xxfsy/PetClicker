@@ -1,9 +1,9 @@
-public abstract class BaseModel 
+public abstract class BaseModel
 {
-    protected BaseView _view;
+    protected BaseView view;
 
-    public BaseModel(BaseView view)
+    public void Initialize(BaseView view)
     {
-        _view = view;
+        this.view = view;
     }
 }

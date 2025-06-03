@@ -2,17 +2,20 @@ using System.Collections.Generic;
 
 public abstract class BaseController
 {
-    protected BaseModel _model { get; private set; }
+    protected BaseModel model { get; private set; }
 
-    protected BaseView _view { get; private set; }
+    protected BaseView view { get; private set; }
 
-    protected BasePresenter _presenter { get; private set; }
+    protected BasePresenter presenter { get; private set; }
 
-    public BaseController(BaseModel model, BaseView view, BasePresenter presenter)
+    protected SharedModel sharedModel { get; private set; } //nullable
+
+    public BaseController(BaseModel model, BaseView view, BasePresenter presenter, SharedModel sharedModel)
     {
-        _model = model;
-        _view = view;
-        _presenter = presenter;
+        this.model = model;
+        this.view = view;
+        this.presenter = presenter;
+        this.sharedModel = sharedModel;
     }
 
     public abstract void InitLayers(); // подумать сделать абстрактным или нет, если нет то надо будет делать проверку то что поля не пустые либо через ?. делать. Да сделать абстрактным, 
