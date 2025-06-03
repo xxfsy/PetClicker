@@ -2,5 +2,5 @@ using System;
 
 public abstract class SharedModel
 {
-    public abstract event Action<int> ViewsNotify;
+    public abstract event Action<string> ViewsNotify;
 }

@@ -1,6 +1,6 @@
 public interface IClickableModel
 {
-    public int MoneyValue { get; }
+    public int ClicksValue { get; }
 
-    public void SetMoneyValue(int newValue);
+    public void SetNewValueAfterClick(int newValue);
 }

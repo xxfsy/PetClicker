@@ -4,16 +4,16 @@ public class ClickModel : BaseModel, IClickableModel
 
     private IClickableView _clickableView => _view as IClickableView;
 
-    public int MoneyValue { get; private set; }
+    public int ClicksValue { get; private set; }
 
     public ClickModel(BaseView view) : base(view)
     {
 
     }
 
-    public void SetMoneyValue(int newValue)
+    public void SetNewValueAfterClick(int newValue)
     {
-        MoneyValue = newValue;
+        ClicksValue = newValue;
 
         _clickableView?.DisplayClickResult(newValue.ToString());
     }

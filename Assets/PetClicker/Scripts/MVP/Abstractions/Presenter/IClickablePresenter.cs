@@ -2,5 +2,5 @@ public interface IClickablePresenter
 {
     public void HandleClick();
 
-    public void UpdateMoneyValue();
+    public void UpdateModelAfterClick();
 }

@@ -8,4 +8,9 @@ public class ClickController : BaseController
 
     public ClickController(BaseModel model, BaseView view, BasePresenter presenter) : base(model, view, presenter)
     {}
+
+    public override void InitLayers()
+    {
+        throw new System.NotImplementedException();
+    }
 }
