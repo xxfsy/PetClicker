@@ -1,24 +1,26 @@
-public class ClickController : BaseController
+public class ClickController : BaseController, ISaveableController
 {
-    //private IClickableModel _clickableModel => model as IClickableModel;
-
-    //private IClickableView _clickableView => view as IClickableView;
-
-    //private IClickablePresenter _clickablePresenter => presenter as IClickablePresenter;
-
-    // мб удалить это сверху ведь не пользуюсь вроде бы этим
-
-    public ClickController(BaseModel model, BaseView view, BasePresenter presenter, SharedModel sharedModel) : base(model, view, presenter, sharedModel)
+    public ClickController(BaseModel model, BaseView view, BasePresenter presenter, BaseSharedModel sharedModel = null) : base(model, view, presenter, sharedModel)
     { }
 
-    public override void InitLayers()
+    public override void InitializeLayers()
     {
         model.Initialize(view);
 
         view.Initialize(presenter);
-        if (view is IUsingSharedModel viewWithSharedModel && sharedModel != null) viewWithSharedModel.SetSharedModel(sharedModel);
+        if (view is IUsingSharedModelLayer viewWithSharedModel && sharedModel != null) viewWithSharedModel.SetSharedModel(sharedModel);
 
         presenter.Initialize(model);
-        if (presenter is IUsingSharedModel presenterWithSharedModel && sharedModel != null) presenterWithSharedModel.SetSharedModel(sharedModel);
+        if (presenter is IUsingSharedModelLayer presenterWithSharedModel && sharedModel != null) presenterWithSharedModel.SetSharedModel(sharedModel);
+    }
+
+    public void SaveLayers(BaseData baseData)
+    {
+        if (model is ISaveableLayer saveableModel) saveableModel.SaveLayer(baseData);
+    }
+
+    public void LoadLayers(BaseData baseData)
+    {
+        if (model is ISaveableLayer saveableModel) saveableModel.LoadLayer(baseData);
     }
 }

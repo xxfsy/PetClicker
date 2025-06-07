@@ -471,7 +471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCanvas: {fileID: 817453353}
-  _clickerViewPrefab: {fileID: 671217810553541059, guid: a2c10259f6caad54a8edc98acfc7057a, type: 3}
+  _clickerViewPrefab: {fileID: 6856961360969018280, guid: a2c10259f6caad54a8edc98acfc7057a, type: 3}
 --- !u!4 &1563609374
 Transform:
   m_ObjectHideFlags: 0
@@ -481,7 +481,7 @@ Transform:
   m_GameObject: {fileID: 1563609372}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 718.25574, y: 1437.0831, z: 7865.2725}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

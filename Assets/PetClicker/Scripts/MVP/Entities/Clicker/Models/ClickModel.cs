@@ -1,7 +1,5 @@
-public class ClickModel : BaseModel, IClickableModel
+public class ClickModel : BaseModel, IClickableModel, ISaveableLayer
 {
-    // TODO: обновить деньги, обновить ui после обновления денег - либо в UpdateMoneyData либо в отдельном методе (спросить)
-
     private IClickableView _clickableView => view as IClickableView;
 
     public int ClicksValue { get; private set; }
@@ -11,5 +9,29 @@ public class ClickModel : BaseModel, IClickableModel
         ClicksValue = newValue;
 
         _clickableView?.DisplayClickResult(newValue.ToString());
+    }
+
+    public void SaveLayer(BaseData baseData)
+    {
+        if (baseData is GameData gameData && gameData.ClicksCount != ClicksValue)
+        {
+            gameData.ClicksCount = ClicksValue;
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    public void LoadLayer(BaseData baseData)
+    {
+        if (baseData is GameData gameData)
+        {
+            ClicksValue = gameData.ClicksCount;
+        }
+        else
+        {
+            return;
+        }
     }
 }

@@ -7,13 +7,13 @@ public class GameEntrypoint : MonoBehaviour
 
     private void Awake()
     {
-        GameInitialize();
+        InitializeGame();
     }
 
-    private void GameInitialize()
+    private void InitializeGame()
     {
         // shared model creating
-        SharedModel moneySharedModel = new MoneySharedModel();
+        BaseSharedModel moneySharedModel = new MoneySharedModel();
 
         // clicker MVP trio creating and initializng
         BaseModel clickModel = new ClickModel();
@@ -21,7 +21,7 @@ public class GameEntrypoint : MonoBehaviour
         BasePresenter clickPresenter = new ClickPresenter();
 
         ClickController clickController = new ClickController(clickModel, clickView, clickPresenter, moneySharedModel);
-        clickController.InitLayers();
+        clickController.InitializeLayers();
 
 
     }

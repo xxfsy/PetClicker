@@ -2,14 +2,14 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ClickView : BaseView, IClickableView, IUsingSharedModel
+public class ClickView : BaseView, IClickableView, IUsingSharedModelLayer
 {
     // TODO: сделать какой-то колбэк или подумать как прокинуть какие действия надо сделать чтобы обновить ui. Хотя мб текущая строка норм, ведь это не ответственность модели, решать какой колбэк
     // кидать вьюшке, она просто передает значение, а вьюшка сама решает что делать со значением. Тогда да, все норм, оcтавить строку. Тогда доделать обновление текста
 
     private IClickablePresenter _clickablePresenter => presenter as IClickablePresenter;
 
-    private SharedModel _moneySharedModel;
+    private BaseSharedModel _moneySharedModel;
 
     [SerializeField] private TextMeshProUGUI _textForClickData;
     [SerializeField] private TextMeshProUGUI _moneyText;
@@ -40,7 +40,7 @@ public class ClickView : BaseView, IClickableView, IUsingSharedModel
         _textForClickData.SetText(newValue);
     }
 
-    public void SetSharedModel(SharedModel sharedModel)
+    public void SetSharedModel(BaseSharedModel sharedModel)
     {
         _moneySharedModel = sharedModel;
 
