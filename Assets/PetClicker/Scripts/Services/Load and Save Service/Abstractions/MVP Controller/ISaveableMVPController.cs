@@ -1,4 +1,4 @@
-public interface ISaveableController
+public interface ISaveableMVPController
 {
     public void SaveLayers(BaseData baseData);
 

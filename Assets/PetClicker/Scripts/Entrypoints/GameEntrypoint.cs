@@ -1,9 +1,11 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class GameEntrypoint : MonoBehaviour
 {
     [SerializeField] private GameObject _mainCanvas;
     [SerializeField] private BaseView _clickerViewPrefab;
+    [SerializeField] private BaseSaveLoadController<GameData> _saveLoadManagerPrefab;
 
     private void Awake()
     {
@@ -20,9 +22,19 @@ public class GameEntrypoint : MonoBehaviour
         BaseView clickView = Instantiate(_clickerViewPrefab, _mainCanvas.transform);
         BasePresenter clickPresenter = new ClickPresenter();
 
-        ClickController clickController = new ClickController(clickModel, clickView, clickPresenter, moneySharedModel);
+        BaseController clickController = new ClickController(clickModel, clickView, clickPresenter, moneySharedModel);
         clickController.InitializeLayers();
 
-
+        //BaseSaveLoadController<GameData> saveLoadController = Instantiate(_saveLoadManagerPrefab);
+        List<ISaveableMVPController> saveableControllers = new List<ISaveableMVPController>()
+        {
+            clickController as ISaveableMVPController
+        };
+        List<ISaveableMVPLayer> saveableLayers = new List<ISaveableMVPLayer>()
+        {
+            moneySharedModel as ISaveableMVPLayer
+        };
+        BaseSaveLoadService playerPrefsJsonSaveServise = new PlayerPrefsJsonSaveServise();
+        //saveLoadController.Initialize(saveableControllers, saveableLayers, playerPrefsJsonSaveServise, PlayerPrefsJsonSaveServise.SaveKeys.GameDataKey);
     }
 }

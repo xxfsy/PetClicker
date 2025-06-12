@@ -1,4 +1,4 @@
-public interface ISaveableLayer
+public interface ISaveableMVPLayer
 {
     public void SaveLayer(BaseData baseData);
 

@@ -1,10 +1,22 @@
+using Newtonsoft.Json;
 using UnityEngine;
 
-public class PlayerPrefsJsonSaveServise : BaseSaveLoadSrevice
+public class PlayerPrefsJsonSaveServise : BaseSaveLoadService
 {
-    public override void SaveData<T>(T data, string saveKey)
+    private JsonSerializerSettings settings = new JsonSerializerSettings
     {
-        string json = JsonUtility.ToJson(data);
+        TypeNameHandling = TypeNameHandling.Auto
+    };
+
+    public static class SaveKeys
+    {
+        // ключи для типов дат, в будущем можно будет добавить еще ключей для других дат : BaseData
+        public const string GameDataKey = "GameData";
+    }
+
+    public override void SaveData(BaseData data, string saveKey)
+    {
+        string json = JsonConvert.SerializeObject(data, settings);
 
         PlayerPrefs.SetString(saveKey, json);
 
@@ -12,15 +24,15 @@ public class PlayerPrefsJsonSaveServise : BaseSaveLoadSrevice
     }
 
 
-    public override T LoadData<T>(string saveKey)
+    public override BaseData LoadData(string saveKey)
     {
         if (!PlayerPrefs.HasKey(saveKey))
         {
-            return new T();
+            return null;
         }
 
         string json = PlayerPrefs.GetString(saveKey);
 
-        return JsonUtility.FromJson<T>(json);
+        return JsonConvert.DeserializeObject<BaseData>(json, settings);
     }
 }

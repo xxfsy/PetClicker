@@ -1,4 +1,4 @@
-public class ClickModel : BaseModel, IClickableModel, ISaveableLayer
+public class ClickModel : BaseModel, IClickableModel, ISaveableMVPLayer
 {
     private IClickableView _clickableView => view as IClickableView;
 
