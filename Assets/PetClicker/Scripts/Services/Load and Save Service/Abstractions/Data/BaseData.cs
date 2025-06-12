@@ -1,4 +1,4 @@
-public abstract class BaseData
+public class BaseData
 {
 
 }

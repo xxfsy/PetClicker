@@ -30,6 +30,8 @@ public class MoneySharedModel : BaseSharedModel, ICurrencySharedModel, ISaveable
         if (baseData is GameData gameData)
         {
             MoneyValue = gameData.MoneyCount;
+
+            ViewsNotify?.Invoke(MoneyValue.ToString());
         }
         else
         {

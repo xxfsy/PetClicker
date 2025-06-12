@@ -1,3 +1,5 @@
+using Unity.Collections.LowLevel.Unsafe;
+
 public class ClickModel : BaseModel, IClickableModel, ISaveableMVPLayer
 {
     private IClickableView _clickableView => view as IClickableView;
@@ -8,7 +10,7 @@ public class ClickModel : BaseModel, IClickableModel, ISaveableMVPLayer
     {
         ClicksValue = newValue;
 
-        _clickableView?.DisplayClickResult(newValue.ToString());
+        _clickableView?.DisplayNewDataFromModel(ClicksValue.ToString());
     }
 
     public void SaveLayer(BaseData baseData)
@@ -28,6 +30,8 @@ public class ClickModel : BaseModel, IClickableModel, ISaveableMVPLayer
         if (baseData is GameData gameData)
         {
             ClicksValue = gameData.ClicksCount;
+
+            _clickableView?.DisplayNewDataFromModel(ClicksValue.ToString());
         }
         else
         {

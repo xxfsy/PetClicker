@@ -1,16 +1,24 @@
-using UnityEngine;
+using System.Collections.Generic;
 
-public class SaveLoadManager : MonoBehaviour
+public class SaveLoadManager : BaseSaveLoadManager
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override void Initialize(List<ISaveableMVPController> saveableControllers, List<ISaveableMVPLayer> saveableSharedModels, BaseSaveLoadService saveLoadService, string saveKey)
     {
-        
+        base.Initialize(saveableControllers, saveableSharedModels, saveLoadService, saveKey);
+
+        LoadGame();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnApplicationPause(bool pause)
     {
-        
+        if (pause)
+            SaveGame();
     }
+
+#if UNITY_EDITOR
+    private void OnApplicationQuit()
+    {
+        SaveGame();
+    }
+#endif
 }

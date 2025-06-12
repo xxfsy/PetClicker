@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class PlayerPrefsJsonSaveServise : BaseSaveLoadService
 {
-    private JsonSerializerSettings settings = new JsonSerializerSettings
+    private JsonSerializerSettings settings = new JsonSerializerSettings 
     {
-        TypeNameHandling = TypeNameHandling.Auto
+        TypeNameHandling = TypeNameHandling.All
     };
 
     public static class SaveKeys
@@ -17,6 +17,7 @@ public class PlayerPrefsJsonSaveServise : BaseSaveLoadService
     public override void SaveData(BaseData data, string saveKey)
     {
         string json = JsonConvert.SerializeObject(data, settings);
+        Debug.Log("save: " + json);
 
         PlayerPrefs.SetString(saveKey, json);
 
@@ -28,10 +29,15 @@ public class PlayerPrefsJsonSaveServise : BaseSaveLoadService
     {
         if (!PlayerPrefs.HasKey(saveKey))
         {
-            return null;
+            switch (saveKey)
+            {
+                case SaveKeys.GameDataKey: return new GameData();
+                default: return new BaseData();
+            }
         }
 
         string json = PlayerPrefs.GetString(saveKey);
+        Debug.Log("load: " + json);
 
         return JsonConvert.DeserializeObject<BaseData>(json, settings);
     }

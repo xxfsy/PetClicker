@@ -5,7 +5,7 @@ public class GameEntrypoint : MonoBehaviour
 {
     [SerializeField] private GameObject _mainCanvas;
     [SerializeField] private BaseView _clickerViewPrefab;
-    [SerializeField] private BaseSaveLoadController<GameData> _saveLoadManagerPrefab;
+    [SerializeField] private BaseSaveLoadManager _saveLoadManagerPrefab;
 
     private void Awake()
     {
@@ -25,7 +25,8 @@ public class GameEntrypoint : MonoBehaviour
         BaseController clickController = new ClickController(clickModel, clickView, clickPresenter, moneySharedModel);
         clickController.InitializeLayers();
 
-        //BaseSaveLoadController<GameData> saveLoadController = Instantiate(_saveLoadManagerPrefab);
+        // SaveLoad service creating and initializing
+        BaseSaveLoadManager saveLoadManager = Instantiate(_saveLoadManagerPrefab);
         List<ISaveableMVPController> saveableControllers = new List<ISaveableMVPController>()
         {
             clickController as ISaveableMVPController
@@ -35,6 +36,6 @@ public class GameEntrypoint : MonoBehaviour
             moneySharedModel as ISaveableMVPLayer
         };
         BaseSaveLoadService playerPrefsJsonSaveServise = new PlayerPrefsJsonSaveServise();
-        //saveLoadController.Initialize(saveableControllers, saveableLayers, playerPrefsJsonSaveServise, PlayerPrefsJsonSaveServise.SaveKeys.GameDataKey);
+        saveLoadManager.Initialize(saveableControllers, saveableLayers, playerPrefsJsonSaveServise, PlayerPrefsJsonSaveServise.SaveKeys.GameDataKey); 
     }
 }
