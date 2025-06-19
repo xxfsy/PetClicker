@@ -44,17 +44,17 @@ public class ClickView : BaseView, IClickableView, IUsingSharedModelLayer
         SubscribeToSharedModel();
     }
 
-    public void SubscribeToSharedModel()
+    private void SubscribeToSharedModel()
     {
         _moneySharedModel.ViewsNotify += DisplayNewDataFromSharedModel;
     }
 
-    public void UnsubscribeFromSharedModel()
+    private void UnsubscribeFromSharedModel()
     {
         _moneySharedModel.ViewsNotify -= DisplayNewDataFromSharedModel;
     }
 
-    public void DisplayNewDataFromSharedModel(string newValue)
+    private void DisplayNewDataFromSharedModel(string newValue)
     {
         _moneyText.SetText(newValue);
     }

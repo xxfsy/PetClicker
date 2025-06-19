@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class BaseSaveLoadManager : MonoBehaviour
 {
-    // каждый контроллер работает только через один сервис и с одним типом даты
+    // каждый менеджер работает только через один сервис и с одним типом даты
 
     protected List<ISaveableMVPController> saveableControllers;
 

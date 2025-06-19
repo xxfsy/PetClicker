@@ -26,7 +26,7 @@ public class ClickPresenter : BasePresenter, IClickablePresenter, IUsingSharedMo
         _clickableModel?.SetNewValueAfterClick(newValue);
     }
 
-    public void UpdateSharedModelAfterClick()
+    private void UpdateSharedModelAfterClick()
     {
         if (_moneySharedModel is ICurrencySharedModel currencySharedModel)
         {
