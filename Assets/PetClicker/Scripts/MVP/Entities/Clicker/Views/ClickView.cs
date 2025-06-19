@@ -2,11 +2,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ClickView : BaseView, IClickableView, IUsingSharedModelLayer
+public class ClickView : BaseView, IClickableView, IUsingSharedModelView
 {
     private IClickablePresenter _clickablePresenter => presenter as IClickablePresenter;
-
-    private BaseSharedModel _moneySharedModel;
 
     [SerializeField] private TextMeshProUGUI _textForClickData;
     [SerializeField] private TextMeshProUGUI _moneyText;
@@ -16,15 +14,11 @@ public class ClickView : BaseView, IClickableView, IUsingSharedModelLayer
     private void OnEnable()
     {
         _clickerButton.onClick.AddListener(OnClickerClicked);
-
-        if (_moneySharedModel != null) SubscribeToSharedModel();
     }
 
     private void OnDisable()
     {
         _clickerButton.onClick.RemoveListener(OnClickerClicked);
-
-        if (_moneySharedModel != null) UnsubscribeFromSharedModel();
     }
 
     public void OnClickerClicked()
@@ -37,24 +31,7 @@ public class ClickView : BaseView, IClickableView, IUsingSharedModelLayer
         _textForClickData.SetText(newValue);
     }
 
-    public void SetSharedModel(BaseSharedModel sharedModel)
-    {
-        _moneySharedModel = sharedModel;
-
-        SubscribeToSharedModel();
-    }
-
-    private void SubscribeToSharedModel()
-    {
-        _moneySharedModel.ViewsNotify += DisplayNewDataFromSharedModel;
-    }
-
-    private void UnsubscribeFromSharedModel()
-    {
-        _moneySharedModel.ViewsNotify -= DisplayNewDataFromSharedModel;
-    }
-
-    private void DisplayNewDataFromSharedModel(string newValue)
+    public void DisplayNewDataFromSharedModel(string newValue)
     {
         _moneyText.SetText(newValue);
     }

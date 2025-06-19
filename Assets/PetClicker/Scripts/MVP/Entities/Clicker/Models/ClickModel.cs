@@ -1,5 +1,3 @@
-using Unity.Collections.LowLevel.Unsafe;
-
 public class ClickModel : BaseModel, IClickableModel, ISaveableMVPLayer
 {
     private IClickableView _clickableView => view as IClickableView;

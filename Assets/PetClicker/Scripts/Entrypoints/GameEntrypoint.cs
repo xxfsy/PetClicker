@@ -14,7 +14,7 @@ public class GameEntrypoint : MonoBehaviour
 
     private void InitializeGame()
     {
-        // shared model creating
+        // shared models creating
         BaseSharedModel moneySharedModel = new MoneySharedModel();
 
         // clicker MVP trio creating and initializng

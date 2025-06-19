@@ -8,10 +8,10 @@ public class ClickController : BaseController, ISaveableMVPController
         model.Initialize(view);
 
         view.Initialize(presenter);
-        if (view is IUsingSharedModelLayer viewWithSharedModel && sharedModel != null) viewWithSharedModel.SetSharedModel(sharedModel);
+        if (view is IUsingSharedModelView usingSharedModelView && sharedModel != null) sharedModel.AddNewView(usingSharedModelView);
 
         presenter.Initialize(model);
-        if (presenter is IUsingSharedModelLayer presenterWithSharedModel && sharedModel != null) presenterWithSharedModel.SetSharedModel(sharedModel);
+        if (presenter is IUsingSharedModelPresenter usingSharedModelPresenter && sharedModel != null) usingSharedModelPresenter.SetSharedModel(sharedModel);
     }
 
     public void SaveLayers(BaseData baseData)

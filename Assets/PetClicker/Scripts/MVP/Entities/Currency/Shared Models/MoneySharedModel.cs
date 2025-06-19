@@ -4,13 +4,12 @@ public class MoneySharedModel : BaseSharedModel, ICurrencySharedModel, ISaveable
 {
     public int MoneyValue { get; private set; }
 
-    public override event Action<string> ViewsNotify;
-
     public void SetNewMoneyValue(int newValue)
     {
         MoneyValue = newValue;
 
-        ViewsNotify?.Invoke(MoneyValue.ToString());
+        foreach (IUsingSharedModelView usingSharedModelView in views)
+            usingSharedModelView.DisplayNewDataFromSharedModel(MoneyValue.ToString());
     }
 
     public void SaveLayer(BaseData baseData)
@@ -31,7 +30,8 @@ public class MoneySharedModel : BaseSharedModel, ICurrencySharedModel, ISaveable
         {
             MoneyValue = gameData.MoneyCount;
 
-            ViewsNotify?.Invoke(MoneyValue.ToString());
+            foreach (IUsingSharedModelView usingSharedModelView in views)
+                usingSharedModelView.DisplayNewDataFromSharedModel(MoneyValue.ToString());
         }
         else
         {

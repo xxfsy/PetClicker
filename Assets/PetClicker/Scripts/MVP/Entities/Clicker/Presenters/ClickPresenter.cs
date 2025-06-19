@@ -1,4 +1,6 @@
-public class ClickPresenter : BasePresenter, IClickablePresenter, IUsingSharedModelLayer
+using System;
+
+public class ClickPresenter : BasePresenter, IClickablePresenter, IUsingSharedModelPresenter
 {
     // т.к. Presenter обрабатывает клики с вида и изменяет модель, то логика обновления денег должна лежать тут, а модель должна просто меняться, а не содержать в себе логику изменения денег
 
@@ -14,7 +16,7 @@ public class ClickPresenter : BasePresenter, IClickablePresenter, IUsingSharedMo
     public void HandleClick()
     {
         UpdateModelAfterClick();
-        UpdateSharedModelAfterClick();
+        UpdateSharedModel();
     }
 
     public void UpdateModelAfterClick()
@@ -26,7 +28,7 @@ public class ClickPresenter : BasePresenter, IClickablePresenter, IUsingSharedMo
         _clickableModel?.SetNewValueAfterClick(newValue);
     }
 
-    private void UpdateSharedModelAfterClick()
+    public void UpdateSharedModel()
     {
         if (_moneySharedModel is ICurrencySharedModel currencySharedModel)
         {
@@ -38,7 +40,8 @@ public class ClickPresenter : BasePresenter, IClickablePresenter, IUsingSharedMo
         }
         else
         {
-            return;
+            throw new NullReferenceException("SharedModel is not ICurrencySharedModel");
+            //return;
         }
     }
 }
