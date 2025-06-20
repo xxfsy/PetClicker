@@ -16,6 +16,14 @@
         this.sharedModel = sharedModel;
     }
 
-    public abstract void InitializeLayers(); // подумать сделать абстрактным или нет, если нет то надо будет делать проверку то что поля не пустые либо через ?. делать. Да сделать абстрактным, 
-    // т.к. логика инициализации у каждого контроллера своя - где-то обычные вьюшки, где-то использующие IUsingSharedModel. Или нет????? подумать еще в общем, мб если что сделать его не абстрактным
+    public virtual void InitializeLayers()
+    {
+        model.Initialize(view);
+
+        view.Initialize(presenter);
+        if (view is IUsingSharedModelView usingSharedModelView && sharedModel != null) sharedModel.AddNewView(usingSharedModelView);
+
+        presenter.Initialize(model);
+        if (presenter is IUsingSharedModelPresenter usingSharedModelPresenter && sharedModel != null) usingSharedModelPresenter.SetSharedModel(sharedModel);
+    }
 }

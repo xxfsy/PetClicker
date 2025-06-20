@@ -1,4 +1,4 @@
-public interface IClickableView
+﻿public interface IClickerView
 {
     public void OnClickerClicked();
 

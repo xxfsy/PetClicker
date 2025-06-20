@@ -1,4 +1,4 @@
-public interface IClickablePresenter
+﻿public interface IClickerPresenter
 {
     public void HandleClick();
 

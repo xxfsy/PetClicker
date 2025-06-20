@@ -1,4 +1,4 @@
-public interface IClickableModel
+﻿public interface IClickerModel
 {
     public int ClicksValue { get; }
 

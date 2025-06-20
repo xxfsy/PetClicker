@@ -1,6 +1,4 @@
-using System;
-
-public class MoneySharedModel : BaseSharedModel, ICurrencySharedModel, ISaveableMVPLayer
+﻿public class MoneySharedModel : BaseSharedModel, ICurrencySharedModel, ISaveableMVPLayer
 {
     public int MoneyValue { get; private set; }
 

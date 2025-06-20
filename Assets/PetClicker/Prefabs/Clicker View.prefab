@@ -187,8 +187,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6934a34fee92b1047a7387eab0bb521b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textForClickData: {fileID: 4983866937143112404}
-  _moneyText: {fileID: 3190540136232600847}
+  _textForClickData: {fileID: 3190540136232600847}
+  _moneyText: {fileID: 4983866937143112404}
   _clickerButton: {fileID: 3417363638613230427}
 --- !u!1 &2372694718767781294
 GameObject:

@@ -1,13 +1,13 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ClickView : BaseView, IClickableView, IUsingSharedModelView
+public class ClickerView : BaseView, IClickerView, IUsingSharedModelView
 {
-    private IClickablePresenter _clickablePresenter => presenter as IClickablePresenter;
+    private IClickerPresenter _clickerPresenter => presenter as IClickerPresenter;
 
     [SerializeField] private TextMeshProUGUI _textForClickData;
-    [SerializeField] private TextMeshProUGUI _moneyText;
+    [SerializeField] private TextMeshProUGUI _moneyText; // вынести в отдельную вьюшку
 
     [SerializeField] private Button _clickerButton;
 
@@ -23,7 +23,7 @@ public class ClickView : BaseView, IClickableView, IUsingSharedModelView
 
     public void OnClickerClicked()
     {
-        _clickablePresenter?.HandleClick();
+        _clickerPresenter?.HandleClick();
     }
 
     public void DisplayNewDataFromModel(string newValue)
@@ -31,7 +31,7 @@ public class ClickView : BaseView, IClickableView, IUsingSharedModelView
         _textForClickData.SetText(newValue);
     }
 
-    public void DisplayNewDataFromSharedModel(string newValue)
+    public void DisplayNewDataFromSharedModel(string newValue) // вынести в отдельную вьюшку
     {
         _moneyText.SetText(newValue);
     }

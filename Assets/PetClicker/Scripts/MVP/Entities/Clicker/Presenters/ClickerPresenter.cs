@@ -1,10 +1,10 @@
 ﻿using System;
 
-public class ClickPresenter : BasePresenter, IClickablePresenter, IUsingSharedModelPresenter
+public class ClickerPresenter : BasePresenter, IClickerPresenter, IUsingSharedModelPresenter
 {
     // т.к. Presenter обрабатывает клики с вида и изменяет модель, то логика обновления денег должна лежать тут, а модель должна просто меняться, а не содержать в себе логику изменения денег
 
-    private IClickableModel _clickableModel => model as IClickableModel;
+    private IClickerModel _clickerModel => model as IClickerModel;
 
     private BaseSharedModel _moneySharedModel;
 
@@ -21,11 +21,11 @@ public class ClickPresenter : BasePresenter, IClickablePresenter, IUsingSharedMo
 
     public void UpdateModelAfterClick()
     {
-        int newValue = _clickableModel.ClicksValue;
+        int newValue = _clickerModel.ClicksValue;
 
         newValue++;
 
-        _clickableModel?.SetNewValueAfterClick(newValue);
+        _clickerModel?.SetNewValueAfterClick(newValue);
     }
 
     public void UpdateSharedModel()

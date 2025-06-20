@@ -1,10 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 
 public class GameEntrypoint : MonoBehaviour
 {
     [SerializeField] private GameObject _mainCanvas;
     [SerializeField] private BaseView _clickerViewPrefab;
+    [SerializeField] private BaseView _autoClickerViewPrefab;
     [SerializeField] private BaseSaveLoadManager _saveLoadManagerPrefab;
     [SerializeField] private BaseTickService _tickServicePrefab;
 
@@ -19,30 +20,40 @@ public class GameEntrypoint : MonoBehaviour
         BaseSharedModel moneySharedModel = new MoneySharedModel();
 
         // clicker MVP trio creating and initializng
-        BaseModel clickModel = new ClickModel();
-        BaseView clickView = Instantiate(_clickerViewPrefab, _mainCanvas.transform);
-        BasePresenter clickPresenter = new ClickPresenter();
+        BaseModel clickerModel = new ClickerModel();
+        BaseView clickerView = Instantiate(_clickerViewPrefab, _mainCanvas.transform);
+        BasePresenter clickerPresenter = new ClickerPresenter();
 
-        BaseController clickController = new ClickController(clickModel, clickView, clickPresenter, moneySharedModel);
-        clickController.InitializeLayers();
+        BaseController clickerController = new SaveableController(clickerModel, clickerView, clickerPresenter, moneySharedModel);
+        clickerController.InitializeLayers();
+
+        // auto-clicker MVP trio creating and initializing
+        BaseModel autoClickerModel = new AutoClickerModel();
+        BaseView autoClickerView = Instantiate(_autoClickerViewPrefab, _mainCanvas.transform);
+        BasePresenter autoClickerPresenter = new AutoClickerPresenter();
+
+        BaseController autoClickerController = new SaveableController(autoClickerModel, autoClickerView, autoClickerPresenter, moneySharedModel);
+        autoClickerController.InitializeLayers();
 
         // SaveLoad service creating and initializing
         BaseSaveLoadManager saveLoadManager = Instantiate(_saveLoadManagerPrefab);
         List<ISaveableMVPController> saveableControllers = new List<ISaveableMVPController>()
         {
-            clickController as ISaveableMVPController
+            clickerController as ISaveableMVPController,
+            autoClickerController as ISaveableMVPController
         };
-        List<ISaveableMVPLayer> saveableLayers = new List<ISaveableMVPLayer>()
+        List<ISaveableMVPLayer> saveableSharedModels = new List<ISaveableMVPLayer>() // обычные модели сохраняются внутри контроллеров, шаредмодели отдельно напрямую через saveLoadManager
         {
             moneySharedModel as ISaveableMVPLayer
         };
         BaseSaveLoadService playerPrefsJsonSaveServise = new PlayerPrefsJsonSaveServise();
-        saveLoadManager.Initialize(saveableControllers, saveableLayers, playerPrefsJsonSaveServise, PlayerPrefsJsonSaveServise.SaveKeys.GameDataKey);
+        saveLoadManager.Initialize(saveableControllers, saveableSharedModels, playerPrefsJsonSaveServise, PlayerPrefsJsonSaveServise.SaveKeys.GameDataKey);
 
         // Tick service creating and initializing
         BaseTickService tickService = Instantiate(_tickServicePrefab);
         List<ITickable> tickables = new List<ITickable>()
         {
+            autoClickerPresenter as ITickable,
             saveLoadManager as ITickable
         };
         foreach (ITickable tickable in tickables)
