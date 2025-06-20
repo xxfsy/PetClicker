@@ -1,4 +1,4 @@
-public interface ISaveableMVPLayer // мб переименовать в ISaveableMVPModel ? ведь по идее только она может сохраняться и загружаться
+public interface ISaveableMVPLayer 
 {
     public void SaveLayer(BaseData baseData);
 

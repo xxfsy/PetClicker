@@ -17,7 +17,7 @@ public class PlayerPrefsJsonSaveServise : BaseSaveLoadService
     public override void SaveData(BaseData data, string saveKey)
     {
         string json = JsonConvert.SerializeObject(data, settings);
-        Debug.Log("save: " + json);
+        Debug.Log("save: " + json); // удалить потом после теста
 
         PlayerPrefs.SetString(saveKey, json);
 
@@ -37,7 +37,7 @@ public class PlayerPrefsJsonSaveServise : BaseSaveLoadService
         }
 
         string json = PlayerPrefs.GetString(saveKey);
-        Debug.Log("load: " + json);
+        Debug.Log("load: " + json); // удалить потом после теста
 
         return JsonConvert.DeserializeObject<BaseData>(json, settings);
     }

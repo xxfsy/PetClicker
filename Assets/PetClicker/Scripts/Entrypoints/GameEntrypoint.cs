@@ -6,6 +6,7 @@ public class GameEntrypoint : MonoBehaviour
     [SerializeField] private GameObject _mainCanvas;
     [SerializeField] private BaseView _clickerViewPrefab;
     [SerializeField] private BaseSaveLoadManager _saveLoadManagerPrefab;
+    [SerializeField] private BaseTickService _tickServicePrefab;
 
     private void Awake()
     {
@@ -36,6 +37,15 @@ public class GameEntrypoint : MonoBehaviour
             moneySharedModel as ISaveableMVPLayer
         };
         BaseSaveLoadService playerPrefsJsonSaveServise = new PlayerPrefsJsonSaveServise();
-        saveLoadManager.Initialize(saveableControllers, saveableLayers, playerPrefsJsonSaveServise, PlayerPrefsJsonSaveServise.SaveKeys.GameDataKey); 
+        saveLoadManager.Initialize(saveableControllers, saveableLayers, playerPrefsJsonSaveServise, PlayerPrefsJsonSaveServise.SaveKeys.GameDataKey);
+
+        // Tick service creating and initializing
+        BaseTickService tickService = Instantiate(_tickServicePrefab);
+        List<ITickable> tickables = new List<ITickable>()
+        {
+            saveLoadManager as ITickable
+        };
+        foreach (ITickable tickable in tickables)
+            tickService.Register(tickable);
     }
 }

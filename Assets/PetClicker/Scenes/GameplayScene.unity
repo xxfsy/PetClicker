@@ -473,6 +473,7 @@ MonoBehaviour:
   _mainCanvas: {fileID: 817453353}
   _clickerViewPrefab: {fileID: 6856961360969018280, guid: a2c10259f6caad54a8edc98acfc7057a, type: 3}
   _saveLoadManagerPrefab: {fileID: 414687190837721323, guid: 0e4662bffebc3cc47a6fa1c84f55cfea, type: 3}
+  _tickServicePrefab: {fileID: 7144156143555138112, guid: 7221bbbbc75a2cd4d9591e7cb4c78c47, type: 3}
 --- !u!4 &1563609374
 Transform:
   m_ObjectHideFlags: 0

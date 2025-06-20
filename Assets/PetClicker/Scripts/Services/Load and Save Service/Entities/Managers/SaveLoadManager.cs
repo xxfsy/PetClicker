@@ -1,7 +1,12 @@
 using System.Collections.Generic;
+using UnityEngine;
 
-public class SaveLoadManager : BaseSaveLoadManager
+public class SaveLoadManager : BaseSaveLoadManager, ITickable
 {
+    [field: SerializeField] public float TickCooldownInSeconds { get; private set; }
+
+    private float _timerToCooldownTick;
+
     public override void Initialize(List<ISaveableMVPController> saveableControllers, List<ISaveableMVPLayer> saveableSharedModels, BaseSaveLoadService saveLoadService, string saveKey)
     {
         base.Initialize(saveableControllers, saveableSharedModels, saveLoadService, saveKey);
@@ -21,4 +26,15 @@ public class SaveLoadManager : BaseSaveLoadManager
         SaveGame();
     }
 #endif
+
+    public void Tick(float timeFromLastTick)
+    {
+        _timerToCooldownTick += timeFromLastTick;
+
+        if (_timerToCooldownTick >= TickCooldownInSeconds)
+        {
+            _timerToCooldownTick = 0;
+            SaveGame();
+        }
+    }
 }

@@ -1,9 +1,9 @@
-using System.Collections.Generic;
+п»їusing System.Collections.Generic;
 using UnityEngine;
 
 public abstract class BaseSaveLoadManager : MonoBehaviour
 {
-    // каждый менеджер работает только через один сервис и с одним типом даты
+    // РєР°Р¶РґС‹Р№ РјРµРЅРµРґР¶РµСЂ СЂР°Р±РѕС‚Р°РµС‚ С‚РѕР»СЊРєРѕ С‡РµСЂРµР· РѕРґРёРЅ СЃРµСЂРІРёСЃ Рё СЃ РѕРґРЅРёРј С‚РёРїРѕРј РґР°С‚С‹
 
     protected List<ISaveableMVPController> saveableControllers;
 
