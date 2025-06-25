@@ -2,12 +2,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ClickerView : BaseView, IClickerView, IUsingSharedModelView
+public class ClickerView : BaseView, IClickerView
 {
     private IClickerPresenter _clickerPresenter => presenter as IClickerPresenter;
 
-    [SerializeField] private TextMeshProUGUI _textForClickData;
-    [SerializeField] private TextMeshProUGUI _moneyText; // вынести в отдельную вьюшку
+    [SerializeField] private TextMeshProUGUI _clicksCountText;
 
     [SerializeField] private Button _clickerButton;
 
@@ -26,13 +25,8 @@ public class ClickerView : BaseView, IClickerView, IUsingSharedModelView
         _clickerPresenter?.HandleClick();
     }
 
-    public void DisplayNewDataFromModel(string newValue)
+    public override void DisplayNewDataFromModel(string newValue)
     {
-        _textForClickData.SetText(newValue);
-    }
-
-    public void DisplayNewDataFromSharedModel(string newValue) // вынести в отдельную вьюшку
-    {
-        _moneyText.SetText(newValue);
+        _clicksCountText.SetText(newValue);
     }
 }

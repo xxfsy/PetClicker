@@ -1,21 +1,19 @@
-﻿public class ClickerModel : BaseModel, IClickerModel, ISaveableMVPLayer
+﻿public class ClickerModel : BaseModel, IClickerModel, ISaveableModel
 {
-    private IClickerView _clickerView => view as IClickerView;
-
-    public int ClicksValue { get; private set; }
+    public int ClicksCount { get; private set; }
 
     public void SetNewValueAfterClick(int newValue)
     {
-        ClicksValue = newValue;
+        ClicksCount = newValue;
 
-        _clickerView?.DisplayNewDataFromModel(ClicksValue.ToString());
+        view.DisplayNewDataFromModel(ClicksCount.ToString());
     }
 
     public void SaveLayer(BaseData baseData)
     {
-        if (baseData is GameData gameData && gameData.ClicksCount != ClicksValue)
+        if (baseData is GameData gameData && gameData.ClicksCount != ClicksCount)
         {
-            gameData.ClicksCount = ClicksValue;
+            gameData.ClicksCount = ClicksCount;
         }
         else
         {
@@ -27,9 +25,9 @@
     {
         if (baseData is GameData gameData)
         {
-            ClicksValue = gameData.ClicksCount;
+            ClicksCount = gameData.ClicksCount;
 
-            _clickerView?.DisplayNewDataFromModel(ClicksValue.ToString());
+            view.DisplayNewDataFromModel(ClicksCount.ToString());
         }
         else
         {

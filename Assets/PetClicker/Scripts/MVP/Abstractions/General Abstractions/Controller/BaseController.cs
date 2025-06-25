@@ -6,9 +6,9 @@
 
     protected BasePresenter presenter { get; private set; }
 
-    protected BaseSharedModel sharedModel { get; private set; } //nullable
+    protected BaseModel sharedModel { get; private set; } //nullable
 
-    public BaseController(BaseModel model, BaseView view, BasePresenter presenter, BaseSharedModel sharedModel)
+    public BaseController(BaseModel model, BaseView view, BasePresenter presenter, BaseModel sharedModel)
     {
         this.model = model;
         this.view = view;
@@ -21,7 +21,7 @@
         model.Initialize(view);
 
         view.Initialize(presenter);
-        if (view is IUsingSharedModelView usingSharedModelView && sharedModel != null) sharedModel.AddNewView(usingSharedModelView);
+        //if (view is ISharedModelView usingSharedModelView && sharedModel != null) sharedModel.AddNewView(usingSharedModelView);
 
         presenter.Initialize(model);
         if (presenter is IUsingSharedModelPresenter usingSharedModelPresenter && sharedModel != null) usingSharedModelPresenter.SetSharedModel(sharedModel);

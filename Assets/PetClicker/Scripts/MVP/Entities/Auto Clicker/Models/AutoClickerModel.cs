@@ -1,14 +1,12 @@
-﻿public class AutoClickerModel : BaseModel, IAutoClickerModel, ISaveableMVPLayer
+﻿public class AutoClickerModel : BaseModel, IAutoClickerModel, ISaveableModel
 {
-    private IAutoClickerView _autoClickerView => view as IAutoClickerView;
-
     public int IncomePerSecond { get; private set; } 
 
     public void SetNewValueForIncomePerSecond(int newValue)
     {
         IncomePerSecond = newValue;
 
-        _autoClickerView.DisplayNewDataFromModel(IncomePerSecond.ToString());
+        view.DisplayNewDataFromModel(IncomePerSecond.ToString());
     }
 
     public void SaveLayer(BaseData baseData)
@@ -29,7 +27,7 @@
         {
             IncomePerSecond = gameData.AutoClickerIncomePerSecond;
 
-            _autoClickerView.DisplayNewDataFromModel(IncomePerSecond.ToString());
+            view.DisplayNewDataFromModel(IncomePerSecond.ToString());
         }
         else
         {

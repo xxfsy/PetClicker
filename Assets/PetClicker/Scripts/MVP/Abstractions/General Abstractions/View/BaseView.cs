@@ -1,6 +1,6 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-public abstract class BaseView : MonoBehaviour 
+public abstract class BaseView : MonoBehaviour
 {
     protected BasePresenter presenter;
 
@@ -8,4 +8,6 @@ public abstract class BaseView : MonoBehaviour
     {
         this.presenter = presenter;
     }
+
+    public abstract void DisplayNewDataFromModel(string newValue);
 }

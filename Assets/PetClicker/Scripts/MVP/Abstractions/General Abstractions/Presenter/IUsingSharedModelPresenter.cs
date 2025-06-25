@@ -1,6 +1,6 @@
-public interface IUsingSharedModelPresenter
+﻿public interface IUsingSharedModelPresenter
 {
-    public void SetSharedModel(BaseSharedModel sharedModel);
+    public void SetSharedModel(BaseModel sharedModel);
 
     public void UpdateSharedModel();
 }

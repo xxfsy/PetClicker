@@ -4,15 +4,20 @@ public class AutoClickerPresenter : BasePresenter, IUsingSharedModelPresenter, I
 {
     private IAutoClickerModel _autoClickerModel => model as IAutoClickerModel;
 
-    private BaseSharedModel _moneySharedModel;
+    private BaseModel _moneySharedModel;
 
-    public float TickCooldownInSeconds { get; private set; } = 1f; // подумать как прокинуть сюда значение 
+    public float TickCooldownInSeconds { get; private set; } 
 
     private float _timerToCooldownTick;
 
-    public void SetSharedModel(BaseSharedModel sharedModel)
+    public void SetSharedModel(BaseModel sharedModel)
     {
         _moneySharedModel = sharedModel;
+    }
+
+    public void SetTickCooldown(float tickCooldownInSeconds)
+    {
+        TickCooldownInSeconds = tickCooldownInSeconds;
     }
 
     public void UpdateSharedModel()
@@ -27,7 +32,7 @@ public class AutoClickerPresenter : BasePresenter, IUsingSharedModelPresenter, I
         }
         else
         {
-            throw new NullReferenceException("SharedModel is not ICurrencySharedModel");
+            throw new InvalidCastException("Expected ICurrencySharedModel, but received something else.");
             //return;
         }
     }
@@ -42,5 +47,4 @@ public class AutoClickerPresenter : BasePresenter, IUsingSharedModelPresenter, I
             UpdateSharedModel();
         }
     }
-
 }

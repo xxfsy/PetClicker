@@ -1,6 +1,6 @@
 ﻿public interface IClickerModel
 {
-    public int ClicksValue { get; }
+    public int ClicksCount { get; }
 
     public void SetNewValueAfterClick(int newValue);
 }

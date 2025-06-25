@@ -6,9 +6,9 @@ public class ClickerPresenter : BasePresenter, IClickerPresenter, IUsingSharedMo
 
     private IClickerModel _clickerModel => model as IClickerModel;
 
-    private BaseSharedModel _moneySharedModel;
+    private BaseModel _moneySharedModel;
 
-    public void SetSharedModel(BaseSharedModel sharedModel)
+    public void SetSharedModel(BaseModel sharedModel)
     {
         _moneySharedModel = sharedModel;
     }
@@ -21,7 +21,7 @@ public class ClickerPresenter : BasePresenter, IClickerPresenter, IUsingSharedMo
 
     public void UpdateModelAfterClick()
     {
-        int newValue = _clickerModel.ClicksValue;
+        int newValue = _clickerModel.ClicksCount;
 
         newValue++;
 
@@ -40,7 +40,7 @@ public class ClickerPresenter : BasePresenter, IClickerPresenter, IUsingSharedMo
         }
         else
         {
-            throw new NullReferenceException("SharedModel is not ICurrencySharedModel");
+            throw new InvalidCastException("Expected ICurrencySharedModel, but received something else.");
             //return;
         }
     }

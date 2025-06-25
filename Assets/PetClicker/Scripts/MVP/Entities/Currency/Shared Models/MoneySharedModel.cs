@@ -1,4 +1,4 @@
-﻿public class MoneySharedModel : BaseSharedModel, ICurrencySharedModel, ISaveableMVPLayer
+﻿public class MoneySharedModel : BaseModel, ICurrencySharedModel, ISaveableModel
 {
     public int MoneyValue { get; private set; }
 
@@ -6,8 +6,7 @@
     {
         MoneyValue = newValue;
 
-        foreach (IUsingSharedModelView usingSharedModelView in views)
-            usingSharedModelView.DisplayNewDataFromSharedModel(MoneyValue.ToString());
+        view.DisplayNewDataFromModel(MoneyValue.ToString());
     }
 
     public void SaveLayer(BaseData baseData)
@@ -28,8 +27,7 @@
         {
             MoneyValue = gameData.MoneyCount;
 
-            foreach (IUsingSharedModelView usingSharedModelView in views)
-                usingSharedModelView.DisplayNewDataFromSharedModel(MoneyValue.ToString());
+            view.DisplayNewDataFromModel(MoneyValue.ToString());
         }
         else
         {

@@ -7,7 +7,7 @@ public abstract class BaseSaveLoadManager : MonoBehaviour
 
     protected List<ISaveableMVPController> saveableControllers;
 
-    protected List<ISaveableMVPLayer> saveableSharedModels;
+    protected List<ISaveableModel> saveableSharedModels;
 
     protected BaseSaveLoadService saveLoadService;
 
@@ -15,7 +15,7 @@ public abstract class BaseSaveLoadManager : MonoBehaviour
 
     protected BaseData data;
 
-    public virtual void Initialize(List<ISaveableMVPController> saveableControllers, List<ISaveableMVPLayer> saveableSharedModels, BaseSaveLoadService saveLoadService, string saveKey)
+    public virtual void Initialize(List<ISaveableMVPController> saveableControllers, List<ISaveableModel> saveableSharedModels, BaseSaveLoadService saveLoadService, string saveKey)
     {
         this.saveableControllers = saveableControllers;
         this.saveableSharedModels = saveableSharedModels;
@@ -30,7 +30,7 @@ public abstract class BaseSaveLoadManager : MonoBehaviour
             saveableController?.SaveLayers(data);
         }
 
-        foreach (ISaveableMVPLayer saveableSharedModel in saveableSharedModels)
+        foreach (ISaveableModel saveableSharedModel in saveableSharedModels)
         {
             saveableSharedModel?.SaveLayer(data);
         }
@@ -47,7 +47,7 @@ public abstract class BaseSaveLoadManager : MonoBehaviour
             saveableController?.LoadLayers(data);
         }
 
-        foreach (ISaveableMVPLayer saveableSharedModel in saveableSharedModels)
+        foreach (ISaveableModel saveableSharedModel in saveableSharedModels)
         {
             saveableSharedModel?.LoadLayer(data);
         }
