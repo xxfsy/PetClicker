@@ -1,6 +1,4 @@
-
-
-public abstract class BaseSaveLoadService
+﻿public abstract class BaseSaveLoadService
 {
     public abstract void SaveData(BaseData data, string saveKey);
 

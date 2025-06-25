@@ -1,13 +1,13 @@
-using System.Collections.Generic;
+п»їusing System.Collections.Generic;
 using UnityEngine;
 
 public abstract class BaseSaveLoadManager : MonoBehaviour
 {
-    // каждый менеджер работает только через один сервис и с одним типом даты
+    // РєР°Р¶РґС‹Р№ РјРµРЅРµРґР¶РµСЂ СЂР°Р±РѕС‚Р°РµС‚ С‚РѕР»СЊРєРѕ С‡РµСЂРµР· РѕРґРёРЅ СЃРµСЂРІРёСЃ Рё СЃ РѕРґРЅРёРј С‚РёРїРѕРј РґР°С‚С‹
 
     protected List<ISaveableMVPController> saveableControllers;
 
-    protected List<ISaveableMVPLayer> saveableSharedModels;
+    protected List<ISaveableModel> saveableSharedModels;
 
     protected BaseSaveLoadService saveLoadService;
 
@@ -15,7 +15,7 @@ public abstract class BaseSaveLoadManager : MonoBehaviour
 
     protected BaseData data;
 
-    public virtual void Initialize(List<ISaveableMVPController> saveableControllers, List<ISaveableMVPLayer> saveableSharedModels, BaseSaveLoadService saveLoadService, string saveKey)
+    public virtual void Initialize(List<ISaveableMVPController> saveableControllers, List<ISaveableModel> saveableSharedModels, BaseSaveLoadService saveLoadService, string saveKey)
     {
         this.saveableControllers = saveableControllers;
         this.saveableSharedModels = saveableSharedModels;
@@ -30,7 +30,7 @@ public abstract class BaseSaveLoadManager : MonoBehaviour
             saveableController?.SaveLayers(data);
         }
 
-        foreach (ISaveableMVPLayer saveableSharedModel in saveableSharedModels)
+        foreach (ISaveableModel saveableSharedModel in saveableSharedModels)
         {
             saveableSharedModel?.SaveLayer(data);
         }
@@ -47,7 +47,7 @@ public abstract class BaseSaveLoadManager : MonoBehaviour
             saveableController?.LoadLayers(data);
         }
 
-        foreach (ISaveableMVPLayer saveableSharedModel in saveableSharedModels)
+        foreach (ISaveableModel saveableSharedModel in saveableSharedModels)
         {
             saveableSharedModel?.LoadLayer(data);
         }

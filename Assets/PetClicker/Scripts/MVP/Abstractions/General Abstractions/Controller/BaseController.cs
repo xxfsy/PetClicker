@@ -1,6 +1,4 @@
-using System.Collections.Generic;
-
-public abstract class BaseController
+п»їpublic abstract class BaseController
 {
     protected BaseModel model { get; private set; }
 
@@ -8,9 +6,9 @@ public abstract class BaseController
 
     protected BasePresenter presenter { get; private set; }
 
-    protected BaseSharedModel sharedModel { get; private set; } //nullable
+    protected BaseModel sharedModel { get; private set; } //nullable
 
-    public BaseController(BaseModel model, BaseView view, BasePresenter presenter, BaseSharedModel sharedModel)
+    public BaseController(BaseModel model, BaseView view, BasePresenter presenter, BaseModel sharedModel)
     {
         this.model = model;
         this.view = view;
@@ -18,6 +16,14 @@ public abstract class BaseController
         this.sharedModel = sharedModel;
     }
 
-    public abstract void InitializeLayers(); // подумать сделать абстрактным или нет, если нет то надо будет делать проверку то что поля не пустые либо через ?. делать. Да сделать абстрактным, 
-    // т.к. логика инициализации у каждого контроллера своя - где-то обычные вьюшки, где-то использующие IUsingSharedModel. Или нет????? подумать еще в общем, мб если что сделать его не абстрактным
+    public virtual void InitializeLayers()
+    {
+        model.Initialize(view);
+
+        view.Initialize(presenter);
+        //if (view is ISharedModelView usingSharedModelView && sharedModel != null) sharedModel.AddNewView(usingSharedModelView);
+
+        presenter.Initialize(model);
+        if (presenter is IUsingSharedModelPresenter usingSharedModelPresenter && sharedModel != null) usingSharedModelPresenter.SetSharedModel(sharedModel);
+    }
 }
