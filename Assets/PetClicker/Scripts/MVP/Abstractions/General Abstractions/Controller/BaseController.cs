@@ -21,7 +21,6 @@
         model.Initialize(view);
 
         view.Initialize(presenter);
-        //if (view is ISharedModelView usingSharedModelView && sharedModel != null) sharedModel.AddNewView(usingSharedModelView);
 
         presenter.Initialize(model);
         if (presenter is IUsingSharedModelPresenter usingSharedModelPresenter && sharedModel != null) usingSharedModelPresenter.SetSharedModel(sharedModel);
