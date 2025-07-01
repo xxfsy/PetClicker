@@ -1,5 +1,5 @@
 # PetClicker
-My project with a focus on architecture and coding parts. This is a clicker on MVP architecture
+My project with a focus on architecture and coding parts. This is a clicker on MVP-Supervising controller architecture
 
 Status: in development
 

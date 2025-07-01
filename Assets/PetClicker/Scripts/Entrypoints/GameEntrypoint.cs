@@ -6,6 +6,10 @@ public class GameEntrypoint : MonoBehaviour
     [Header("Canvases")]
     [SerializeField] private GameObject _mainCanvas;
 
+    [Header("Root GameObjects for screens")]
+    [SerializeField] private GameObject _mainScreenRoot;
+    [SerializeField] private GameObject _upgradeScreenRoot;
+
     [Header("Views")]
     [SerializeField] private BaseView _clickerViewPrefab;
     [SerializeField] private BaseView _autoClickerViewPrefab;
@@ -14,6 +18,7 @@ public class GameEntrypoint : MonoBehaviour
     [Header("Services")]
     [SerializeField] private BaseSaveLoadManager _saveLoadManagerPrefab;
     [SerializeField] private BaseTickService _tickServicePrefab;
+    [SerializeField] private BaseUIScreenSwitcherService _uiScreenSwitcherServicePrefab;
 
     [Header("TickCooldowns")]
     [SerializeField] private float _tickCooldownForAutoClicker = 1f;
@@ -28,12 +33,12 @@ public class GameEntrypoint : MonoBehaviour
     {
         // shared models creating and initializing. Shared models - инициализируются тут, обычные модели - внутри контроллера
         BaseModel moneySharedModel = new MoneySharedModel();
-        BaseView moneyView = Instantiate(_moneyViewPrefab, _mainCanvas.transform);
+        BaseView moneyView = Instantiate(_moneyViewPrefab, _mainScreenRoot.transform);
         moneySharedModel.Initialize(moneyView);
 
         // clicker MVP trio creating and initializng
         BaseModel clickerModel = new ClickerModel();
-        BaseView clickerView = Instantiate(_clickerViewPrefab, _mainCanvas.transform);
+        BaseView clickerView = Instantiate(_clickerViewPrefab, _mainScreenRoot.transform);
         BasePresenter clickerPresenter = new ClickerPresenter();
 
         BaseController clickerController = new SaveableController(clickerModel, clickerView, clickerPresenter, moneySharedModel);
@@ -41,11 +46,15 @@ public class GameEntrypoint : MonoBehaviour
 
         // auto-clicker MVP trio creating and initializing
         BaseModel autoClickerModel = new AutoClickerModel();
-        BaseView autoClickerView = Instantiate(_autoClickerViewPrefab, _mainCanvas.transform);
+        BaseView autoClickerView = Instantiate(_autoClickerViewPrefab, _mainScreenRoot.transform);
         BasePresenter autoClickerPresenter = new AutoClickerPresenter();
 
         BaseController autoClickerController = new AutoClickerSaveableController(autoClickerModel, autoClickerView, autoClickerPresenter, _tickCooldownForAutoClicker, moneySharedModel);
         autoClickerController.InitializeLayers();
+
+        // UI Screen Switcher Service creating and initializing
+        BaseUIScreenSwitcherService uiScreenSwitcherService = Instantiate(_uiScreenSwitcherServicePrefab, _mainCanvas.transform);
+        uiScreenSwitcherService.Initialize(_mainScreenRoot, _upgradeScreenRoot);
 
         // SaveLoad service creating and initializing
         BaseSaveLoadManager saveLoadManager = Instantiate(_saveLoadManagerPrefab);
