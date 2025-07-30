@@ -1,7 +1,7 @@
-using Newtonsoft.Json;
+п»їusing Newtonsoft.Json;
 using UnityEngine;
 
-public class PlayerPrefsJsonSaveServise : BaseSaveLoadService
+public class PlayerPrefsJsonSaveLoadServise : BaseSaveLoadService
 {
     private JsonSerializerSettings settings = new JsonSerializerSettings 
     {
@@ -10,14 +10,14 @@ public class PlayerPrefsJsonSaveServise : BaseSaveLoadService
 
     public static class SaveKeys
     {
-        // ключи для типов дат, в будущем можно будет добавить еще ключей для других дат : BaseData
+        // РєР»СЋС‡Рё РґР»СЏ С‚РёРїРѕРІ РґР°С‚, РІ Р±СѓРґСѓС‰РµРј РјРѕР¶РЅРѕ Р±СѓРґРµС‚ РґРѕР±Р°РІРёС‚СЊ РµС‰Рµ РєР»СЋС‡РµР№ РґР»СЏ РґСЂСѓРіРёС… РґР°С‚ : BaseData
         public const string GameDataKey = "GameData";
     }
 
     public override void SaveData(BaseData data, string saveKey)
     {
         string json = JsonConvert.SerializeObject(data, settings);
-        Debug.Log("save: " + json); // удалить потом после теста
+        Debug.Log("save: " + json); // СѓРґР°Р»РёС‚СЊ РїРѕС‚РѕРј РїРѕСЃР»Рµ С‚РµСЃС‚Р°
 
         PlayerPrefs.SetString(saveKey, json);
 
@@ -37,7 +37,7 @@ public class PlayerPrefsJsonSaveServise : BaseSaveLoadService
         }
 
         string json = PlayerPrefs.GetString(saveKey);
-        Debug.Log("load: " + json); // удалить потом после теста
+        Debug.Log("load: " + json); // СѓРґР°Р»РёС‚СЊ РїРѕС‚РѕРј РїРѕСЃР»Рµ С‚РµСЃС‚Р°
 
         return JsonConvert.DeserializeObject<BaseData>(json, settings);
     }

@@ -67,9 +67,9 @@ public class GameEntrypoint : MonoBehaviour
         {
             moneySharedModel as ISaveableModel
         };
-        BaseSaveLoadService playerPrefsJsonSaveServise = new PlayerPrefsJsonSaveServise();
+        BaseSaveLoadService playerPrefsJsonSaveServise = new PlayerPrefsJsonSaveLoadServise();
         (saveLoadManager as ITickable).SetTickCooldown(_tickCooldownForSaveLoadManager); 
-        saveLoadManager.Initialize(saveableControllers, saveableSharedModels, playerPrefsJsonSaveServise, PlayerPrefsJsonSaveServise.SaveKeys.GameDataKey);
+        saveLoadManager.Initialize(saveableControllers, saveableSharedModels, playerPrefsJsonSaveServise, PlayerPrefsJsonSaveLoadServise.SaveKeys.GameDataKey);
 
         // Tick service creating and initializing
         BaseTickService tickService = Instantiate(_tickServicePrefab);
