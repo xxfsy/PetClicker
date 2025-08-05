@@ -6,9 +6,7 @@ public class AutoClickerPresenter : BasePresenter, IUsingSharedModelPresenter, I
 
     private BaseModel _moneySharedModel;
 
-    public float TickCooldownInSeconds { get; private set; } 
-
-    private float _timerToCooldownTick;
+    public float TickCooldownInSeconds { get; private set; }
 
     public void SetSharedModel(BaseModel sharedModel)
     {
@@ -33,18 +31,11 @@ public class AutoClickerPresenter : BasePresenter, IUsingSharedModelPresenter, I
         else
         {
             throw new InvalidCastException("Expected ICurrencySharedModel, but received something else.");
-            //return;
         }
     }
 
-    public void Tick(float timeFromLastTick)
+    public void Tick()
     {
-        _timerToCooldownTick += timeFromLastTick;
-
-        if (_timerToCooldownTick >= TickCooldownInSeconds)
-        {
-            _timerToCooldownTick = 0;
-            UpdateSharedModel();
-        }
+        UpdateSharedModel();
     }
 }

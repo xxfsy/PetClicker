@@ -1,4 +1,4 @@
 ﻿public interface IUpgradesShopView 
 {
-    public void InitializeShopContent(BaseShopContent shopContentConfig, BaseView upgradeItemViewPrefab);
+    public void Initialize(BaseShopContent shopContentConfig, BaseView upgradeItemViewPrefab);
 }

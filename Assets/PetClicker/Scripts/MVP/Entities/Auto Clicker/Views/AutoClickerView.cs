@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class AutoClickerView : BaseView
 {
-    [SerializeField] private TextMeshProUGUI _textForAutoClickData;
+    [SerializeField] private TextMeshProUGUI _textForAutoClickValue;
 
     [SerializeField] private string _prefixForIncomePerSecond = "/sec";
 
 
     public override void DisplayNewDataFromModel(string newValue)
     {
-        _textForAutoClickData.SetText(newValue + _prefixForIncomePerSecond);
+        _textForAutoClickValue.SetText(newValue + _prefixForIncomePerSecond);
     }
 }

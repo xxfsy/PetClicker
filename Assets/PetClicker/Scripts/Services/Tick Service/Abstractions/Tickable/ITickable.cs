@@ -4,5 +4,5 @@
 
     public void SetTickCooldown(float tickCooldownInSeconds);
 
-    public void Tick(float timeFromLastTick);
+    public void Tick();
 }
