@@ -1,4 +1,4 @@
-﻿public class UpgradesShopModel : BaseModel, IUpgradesShopModel
+﻿public class UpgradesShopModel : BaseUpgradesShopModel
 {
     
 }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public class UpgradesShopView : BaseView, IUpgradesShopView
+public class UpgradesShopView : BaseUpgradesShopView
 {
     private BaseShopContent _shopContentConfig;
     private BaseView _upgradeItemViewPrefab; 
@@ -12,7 +12,7 @@ public class UpgradesShopView : BaseView, IUpgradesShopView
         throw new System.NotImplementedException();
     }
 
-    public void Initialize(BaseShopContent shopContentConfig, BaseView upgradeItemViewPrefab)
+    public override void Initialize(BaseShopContent shopContentConfig, BaseView upgradeItemViewPrefab)
     {
         _shopContentConfig = shopContentConfig;
         _upgradeItemViewPrefab = upgradeItemViewPrefab;
@@ -23,13 +23,13 @@ public class UpgradesShopView : BaseView, IUpgradesShopView
         InitializeShopContent();
     }
 
-    private void InitializeShopContent()
+    protected override void InitializeShopContent()
     {
-
+        throw new System.NotImplementedException();
     }
 
     private void OnUpgradeItemClicked(BaseUpgradeItem upgradeItemConfig)
     {
-
+        throw new System.NotImplementedException();
     }
 }

@@ -2,9 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ClickerView : BaseView, IClickerView
+public class ClickerView : BaseClickerView
 {
-    private IClickerPresenter _clickerPresenter => presenter as IClickerPresenter;
+    private BaseClickerPresenter _clickerPresenter => presenter as BaseClickerPresenter;
 
     [SerializeField] private TextMeshProUGUI _clicksCountText;
 
@@ -20,7 +20,7 @@ public class ClickerView : BaseView, IClickerView
         _clickerButton.onClick.RemoveListener(OnClickerClicked);
     }
 
-    public void OnClickerClicked()
+    protected override void OnClickerClicked()
     {
         _clickerPresenter?.HandleClick();
     }

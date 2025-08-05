@@ -23,6 +23,6 @@
         view.Initialize(presenter);
 
         presenter.Initialize(model);
-        if (presenter is IUsingSharedModelPresenter usingSharedModelPresenter && sharedModel != null) usingSharedModelPresenter.SetSharedModel(sharedModel);
+        if (presenter is BaseUsingSharedModelPresenter usingSharedModelPresenter && sharedModel != null) usingSharedModelPresenter.SetSharedModel(sharedModel);
     }
 }

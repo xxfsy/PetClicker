@@ -1,14 +1,14 @@
 ﻿using System;
 
-public class AutoClickerPresenter : BasePresenter, IUsingSharedModelPresenter, ITickable
+public class AutoClickerPresenter : BaseUsingSharedModelPresenter, ITickable
 {
-    private IAutoClickerModel _autoClickerModel => model as IAutoClickerModel;
+    private BaseAutoClickerModel _autoClickerModel => model as BaseAutoClickerModel;
 
     private BaseModel _moneySharedModel;
 
     public float TickCooldownInSeconds { get; private set; }
 
-    public void SetSharedModel(BaseModel sharedModel)
+    public override void SetSharedModel(BaseModel sharedModel)
     {
         _moneySharedModel = sharedModel;
     }
@@ -18,15 +18,15 @@ public class AutoClickerPresenter : BasePresenter, IUsingSharedModelPresenter, I
         TickCooldownInSeconds = tickCooldownInSeconds;
     }
 
-    public void UpdateSharedModel()
+    protected override void UpdateSharedModel()
     {
-        if (_moneySharedModel is ICurrencySharedModel currencySharedModel)
+        if (_moneySharedModel is BaseCurrencySharedModel currencySharedModel)
         {
             int newValue = currencySharedModel.MoneyValue;
 
             newValue += _autoClickerModel.IncomePerSecond;
 
-            currencySharedModel.SetNewMoneyValue(newValue);
+            currencySharedModel.SetNewCurrencyValue(newValue);
         }
         else
         {

@@ -1,8 +1,6 @@
-﻿public class ClickerModel : BaseModel, IClickerModel, ISaveableModel
+﻿public class ClickerModel : BaseClickerModel, ISaveableModel
 {
-    public int ClicksCount { get; private set; }
-
-    public void SetNewValueAfterClick(int newValue)
+    public override void SetNewValueAfterClick(int newValue)
     {
         ClicksCount = newValue;
 

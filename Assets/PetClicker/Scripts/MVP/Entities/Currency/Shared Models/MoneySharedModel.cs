@@ -1,8 +1,6 @@
-﻿public class MoneySharedModel : BaseModel, ICurrencySharedModel, ISaveableModel
+﻿public class MoneySharedModel : BaseCurrencySharedModel, ISaveableModel
 {
-    public int MoneyValue { get; private set; }
-
-    public void SetNewMoneyValue(int newValue)
+    public override void SetNewCurrencyValue(int newValue)
     {
         MoneyValue = newValue;
 

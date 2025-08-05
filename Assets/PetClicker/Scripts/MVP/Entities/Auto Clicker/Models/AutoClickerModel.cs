@@ -1,8 +1,6 @@
-﻿public class AutoClickerModel : BaseModel, IAutoClickerModel, ISaveableModel
+﻿public class AutoClickerModel : BaseAutoClickerModel, ISaveableModel
 {
-    public int IncomePerSecond { get; private set; } 
-
-    public void SetNewValueForIncomePerSecond(int newValue)
+    public override void SetNewValueForIncomePerSecond(int newValue)
     {
         IncomePerSecond = newValue;
 

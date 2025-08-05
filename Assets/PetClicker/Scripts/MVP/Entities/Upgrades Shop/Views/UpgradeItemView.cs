@@ -2,7 +2,7 @@
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class UpgradeItemView : BaseView, IUpgradeItemView
+public class UpgradeItemView : BaseUpgradeItemView
 {
     private BaseUpgradeItem _upgradeItemConfig;
 
@@ -17,12 +17,12 @@ public class UpgradeItemView : BaseView, IUpgradeItemView
 
     private void OnEnable()
     {
-        _upgradeItemButton.onClick.AddListener(OnUpgradeItemClicked);
+        _upgradeItemButton.onClick.AddListener(OnUpgradeItemInteracted);
     }
 
     private void OnDisable()
     {
-        _upgradeItemButton.onClick.RemoveListener(OnUpgradeItemClicked);
+        _upgradeItemButton.onClick.RemoveListener(OnUpgradeItemInteracted);
     }
 
     public override void DisplayNewDataFromModel(string newValue)
@@ -30,7 +30,7 @@ public class UpgradeItemView : BaseView, IUpgradeItemView
         throw new System.NotImplementedException();
     }
 
-    public void InitializeUpgradeItemView(BaseUpgradeItem upgradeItemConfig, UnityAction<BaseUpgradeItem> actionAfterClick)
+    public override void InitializeUpgradeItemView(BaseUpgradeItem upgradeItemConfig, UnityAction<BaseUpgradeItem> actionAfterClick)
     {
         _upgradeItemConfig = upgradeItemConfig;
 
@@ -53,17 +53,12 @@ public class UpgradeItemView : BaseView, IUpgradeItemView
         //}
     }
 
-    public void OnUpgradeItemClicked()
+    protected override void OnUpgradeItemInteracted()
     {
         _actionAfterClick?.Invoke(_upgradeItemConfig);
     }
 
-    protected void SetLocked(bool isLocked)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    void IUpgradeItemView.SetLocked(bool isLocked)
+    public override void SetLocked(bool isLocked)
     {
         throw new System.NotImplementedException();
     }

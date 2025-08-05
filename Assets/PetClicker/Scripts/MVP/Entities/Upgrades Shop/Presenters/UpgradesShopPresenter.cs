@@ -1,4 +1,4 @@
-﻿public class UpgradesShopPresenter : BasePresenter, IUpgradesShopPresenter
+﻿public class UpgradesShopPresenter : BaseUpgradesShopPresenter
 {
 
 }
