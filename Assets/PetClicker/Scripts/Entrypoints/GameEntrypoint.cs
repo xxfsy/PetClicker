@@ -1,75 +1,121 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class GameEntrypoint : MonoBehaviour
 {
+    [Header("Debbuging")]
+    [SerializeField] private bool _resetPlayerPrefs;
+
     [Header("Canvases")]
     [SerializeField] private GameObject _mainCanvas;
 
+    [Header("Root GameObjects for screens")]
+    [SerializeField] private GameObject _mainScreenRoot;
+    [SerializeField] private GameObject _upgradeScreenRoot;
+    [SerializeField] private GameObject _overlayScreenRoot;
+    [SerializeField] private GameObject _loadingScreenRoot;
+
     [Header("Views")]
-    [SerializeField] private BaseView _clickerViewPrefab;
-    [SerializeField] private BaseView _autoClickerViewPrefab;
-    [SerializeField] private BaseView _moneyViewPrefab;
+    [SerializeField] private BaseClickerView _clickerViewPrefab;
+    [SerializeField] private BaseAutoClickerView _autoClickerViewPrefab;
+    [SerializeField] private BaseUpgradesShopView _upgradesShopViewPrefab;
+    [SerializeField] private BaseCurrencyView _moneyViewPrefab;
 
     [Header("Services")]
     [SerializeField] private BaseSaveLoadManager _saveLoadManagerPrefab;
     [SerializeField] private BaseTickService _tickServicePrefab;
+    [SerializeField] private BaseUIScreenSwitcherService _uiScreenSwitcherServicePrefab;
 
     [Header("TickCooldowns")]
     [SerializeField] private float _tickCooldownForAutoClicker = 1f;
     [SerializeField] private float _tickCooldownForSaveLoadManager = 30f;
 
+    [Header("Configs")]
+    [SerializeField] private BaseShopContent _shopContentConfig;
+
     private void Awake()
     {
+        //Debugging
+#if UNITY_EDITOR
+
+        if (_resetPlayerPrefs)
+        {
+            PlayerPrefs.DeleteAll();
+        }
+
+#endif
+
         InitializeGame();
     }
 
-    private void InitializeGame()
+    private void InitializeGame() // Вообще надо по идее наверное создать какой-то интерфейс или что-то типа того чтобы у ентри поинта не было доступа к методам Intialize у слоев, чтобы нельзя было ничего тут проинициализировать, кроме shared моделей, ведь этим занимается контроллер.
     {
-        // shared models creating and initializing. Shared models - инициализируются тут, обычные модели - внутри контроллера
-        BaseModel moneySharedModel = new MoneySharedModel();
-        BaseView moneyView = Instantiate(_moneyViewPrefab, _mainCanvas.transform);
+        // Loading screen turning on
+        _loadingScreenRoot.SetActive(true);
+
+        // Event bus creating
+        BaseEventBus eventBus = new EventBus();
+
+        // Shared models creating and initializing. Shared models - инициализируются тут, обычные модели - внутри контроллера
+        BaseCurrencySharedModel moneySharedModel = new MoneySharedModel(); // надо ли все переделывать под абстракцию текущего уровня как тут? будет ли так соблюдаться DIP? Надо ли тогда все остальные трио так же переделывать под BaseClickerModel вместо BaseModel и тд (?)
+        BaseCurrencyView moneyView = Instantiate(_moneyViewPrefab, _overlayScreenRoot.transform);
         moneySharedModel.Initialize(moneyView);
 
-        // clicker MVP trio creating and initializng
-        BaseModel clickerModel = new ClickerModel();
-        BaseView clickerView = Instantiate(_clickerViewPrefab, _mainCanvas.transform);
-        BasePresenter clickerPresenter = new ClickerPresenter();
+        // Clicker MVP trio creating and initializng
+        BaseClickerModel clickerModel = new ClickerModel();
+        BaseClickerView clickerView = Instantiate(_clickerViewPrefab, _mainScreenRoot.transform);
+        BaseClickerPresenter clickerPresenter = new ClickerPresenter();
 
-        BaseController clickerController = new SaveableController(clickerModel, clickerView, clickerPresenter, moneySharedModel);
+        BaseSaveableController clickerController = new SaveableController(clickerModel, clickerView, clickerPresenter, moneySharedModel, eventBus);
         clickerController.InitializeLayers();
 
-        // auto-clicker MVP trio creating and initializing
-        BaseModel autoClickerModel = new AutoClickerModel();
-        BaseView autoClickerView = Instantiate(_autoClickerViewPrefab, _mainCanvas.transform);
-        BasePresenter autoClickerPresenter = new AutoClickerPresenter();
+        // Auto-clicker MVP trio creating and initializing
+        BaseAutoClickerModel autoClickerModel = new AutoClickerModel();
+        BaseAutoClickerView autoClickerView = Instantiate(_autoClickerViewPrefab, _mainScreenRoot.transform);
+        BaseAutoClickerPresenter autoClickerPresenter = new AutoClickerPresenter();
 
-        BaseController autoClickerController = new AutoClickerSaveableController(autoClickerModel, autoClickerView, autoClickerPresenter, _tickCooldownForAutoClicker, moneySharedModel);
+        BaseSaveableController autoClickerController = new AutoClickerSaveableController(autoClickerModel, autoClickerView, autoClickerPresenter, _tickCooldownForAutoClicker, moneySharedModel, eventBus);
         autoClickerController.InitializeLayers();
+
+        // Upgrades shop MVP trio creating and initializing
+        BaseUpgradesShopModel upgradesShopModel = new UpgradesShopModel();
+        BaseUpgradesShopView upgradesShopView = Instantiate(_upgradesShopViewPrefab, _upgradeScreenRoot.transform);
+        BaseUpgradesShopPresenter upgradesShopPresenter = new UpgradesShopPresenter();
+
+        BaseSaveableController upgradesShopController = new UpgradesShopSaveableController(upgradesShopModel, upgradesShopView, upgradesShopPresenter, _shopContentConfig, moneySharedModel, eventBus);
+        upgradesShopController.InitializeLayers();
+
+        // UI Screen Switcher Service creating and initializing
+        BaseUIScreenSwitcherService uiScreenSwitcherService = Instantiate(_uiScreenSwitcherServicePrefab, _mainCanvas.transform);
+        uiScreenSwitcherService.Initialize(_mainScreenRoot, _upgradeScreenRoot);
 
         // SaveLoad service creating and initializing
         BaseSaveLoadManager saveLoadManager = Instantiate(_saveLoadManagerPrefab);
-        List<ISaveableMVPController> saveableControllers = new List<ISaveableMVPController>()
+        List<BaseSaveableController> saveableControllers = new List<BaseSaveableController>()
         {
-            clickerController as ISaveableMVPController,
-            autoClickerController as ISaveableMVPController
+            clickerController,
+            autoClickerController, 
+            upgradesShopController 
         };
-        List<ISaveableModel> saveableSharedModels = new List<ISaveableModel>() // обычные модели сохраняются внутри контроллеров, шаредмодели отдельно напрямую через saveLoadManager
+        List<BaseSaveableModel> saveableSharedModels = new List<BaseSaveableModel>() // обычные модели сохраняются через контроллеры, шаредмодели отдельно напрямую через saveLoadManager
         {
-            moneySharedModel as ISaveableModel
+            moneySharedModel
         };
-        BaseSaveLoadService playerPrefsJsonSaveServise = new PlayerPrefsJsonSaveServise();
-        (saveLoadManager as ITickable).SetTickCooldown(_tickCooldownForSaveLoadManager); 
-        saveLoadManager.Initialize(saveableControllers, saveableSharedModels, playerPrefsJsonSaveServise, PlayerPrefsJsonSaveServise.SaveKeys.GameDataKey);
+        BaseSaveLoadService playerPrefsJsonSaveServise = new PlayerPrefsJsonSaveLoadService();
+        saveLoadManager.Initialize(saveableControllers, saveableSharedModels, playerPrefsJsonSaveServise, SaveKeys.GameDataKey);
+        (saveLoadManager as ITickable)?.SetTickCooldown(_tickCooldownForSaveLoadManager); 
 
         // Tick service creating and initializing
         BaseTickService tickService = Instantiate(_tickServicePrefab);
         List<ITickable> tickables = new List<ITickable>()
         {
-            autoClickerPresenter as ITickable,
+            autoClickerPresenter,
             saveLoadManager as ITickable
         };
         foreach (ITickable tickable in tickables)
             tickService.Register(tickable);
+
+        // Loading screen turning off
+        _loadingScreenRoot.SetActive(false);
     }
 }

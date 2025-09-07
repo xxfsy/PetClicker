@@ -1,50 +1,54 @@
-﻿using System;
-
-public class AutoClickerPresenter : BasePresenter, IUsingSharedModelPresenter, ITickable
+﻿
+public class AutoClickerPresenter : BaseAutoClickerPresenter, IUseEventBus 
 {
-    private IAutoClickerModel _autoClickerModel => model as IAutoClickerModel;
+    public override float TickCooldownInSeconds { get; protected set; }
 
-    private BaseModel _moneySharedModel;
+    private BaseEventBus _eventBus;
 
-    public float TickCooldownInSeconds { get; private set; } 
-
-    private float _timerToCooldownTick;
-
-    public void SetSharedModel(BaseModel sharedModel)
-    {
-        _moneySharedModel = sharedModel;
-    }
-
-    public void SetTickCooldown(float tickCooldownInSeconds)
+    public override void SetTickCooldown(float tickCooldownInSeconds)
     {
         TickCooldownInSeconds = tickCooldownInSeconds;
     }
 
-    public void UpdateSharedModel()
+    public void SetEventBus(BaseEventBus eventBus)
     {
-        if (_moneySharedModel is ICurrencySharedModel currencySharedModel)
-        {
-            int newValue = currencySharedModel.MoneyValue;
-
-            newValue += _autoClickerModel.IncomePerSecond;
-
-            currencySharedModel.SetNewMoneyValue(newValue);
-        }
-        else
-        {
-            throw new InvalidCastException("Expected ICurrencySharedModel, but received something else.");
-            //return;
-        }
+        _eventBus = eventBus;
+        Subscribe();
     }
 
-    public void Tick(float timeFromLastTick)
+    public override void Tick()
     {
-        _timerToCooldownTick += timeFromLastTick;
-
-        if (_timerToCooldownTick >= TickCooldownInSeconds)
-        {
-            _timerToCooldownTick = 0;
-            UpdateSharedModel();
-        }
+        UpdateSharedModel();
     }
+
+    protected override void UpdateSharedModel()
+    {
+        //if (currencySharedModel == null)
+        //    return;
+
+        int currencyAmount = currencySharedModel.CurrentAmount;
+
+        currencyAmount += autoClickerModel.IncomePerSecond;
+
+        currencySharedModel.SetNewCurrencyAmount(currencyAmount);
+    }
+
+    private void OnAutoClickerUpgradeBought(AutoClickerUpgradeBoughtSignal autoClickerUpgradeBoughtSignal)
+    {
+        int upgradeValue = autoClickerUpgradeBoughtSignal.UpgradeValue;
+
+        int currentIncomePerSecond = autoClickerModel.IncomePerSecond;
+        autoClickerModel.SetNewValueForIncomePerSecond(currentIncomePerSecond + upgradeValue);
+    }
+
+    private void Subscribe()
+    {
+        _eventBus.Subscribe<AutoClickerUpgradeBoughtSignal>(OnAutoClickerUpgradeBought);
+    }
+
+    private void UnSubscribe()
+    {
+
+    }
+
 }

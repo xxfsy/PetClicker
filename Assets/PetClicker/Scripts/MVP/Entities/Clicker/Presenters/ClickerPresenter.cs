@@ -1,47 +1,50 @@
-﻿using System;
-
-public class ClickerPresenter : BasePresenter, IClickerPresenter, IUsingSharedModelPresenter
+﻿
+public class ClickerPresenter : BaseClickerPresenter, IUseEventBus 
 {
     // т.к. Presenter обрабатывает клики с вида и изменяет модель, то логика обновления денег должна лежать тут, а модель должна просто меняться, а не содержать в себе логику изменения денег
 
-    private IClickerModel _clickerModel => model as IClickerModel;
+    private BaseEventBus _eventBus;
 
-    private BaseModel _moneySharedModel;
-
-    public void SetSharedModel(BaseModel sharedModel)
+    public void SetEventBus(BaseEventBus eventBus)
     {
-        _moneySharedModel = sharedModel;
+        _eventBus = eventBus;
+        Subscribe();
     }
 
-    public void HandleClick()
+    public override void HandleClick()
     {
-        UpdateModelAfterClick();
-        UpdateSharedModel();
+        UpdateModelsAfterClick();
     }
 
-    public void UpdateModelAfterClick()
+    protected override void UpdateModelsAfterClick()
     {
-        int newValue = _clickerModel.ClicksCount;
+        int currentClicksCount = clickerModel.ClicksCount;
 
-        newValue++;
+        currentClicksCount++;
 
-        _clickerModel?.SetNewValueAfterClick(newValue);
+        clickerModel.SetNewClicksCountValue(currentClicksCount);
+
+        // мб вынести в отдельный метод изменений шаред модели
+        int currencyAmount = currencySharedModel.CurrentAmount; 
+        currencyAmount += clickerModel.IncomePerClick;
+        currencySharedModel.SetNewCurrencyAmount(currencyAmount);
     }
 
-    public void UpdateSharedModel()
+    private void OnClickerUpgradeBought(ClickerUpgradeBoughtSignal autoClickerUpgradeBoughtSignal)
     {
-        if (_moneySharedModel is ICurrencySharedModel currencySharedModel)
-        {
-            int newValue = currencySharedModel.MoneyValue;
+        int upgradeValue = autoClickerUpgradeBoughtSignal.UpgradeValue;
 
-            newValue++;
+        int currentIncomePerSecond = clickerModel.IncomePerClick;
+        clickerModel.SetNewValueForIncomePerClick(currentIncomePerSecond + upgradeValue);
+    }
 
-            currencySharedModel.SetNewMoneyValue(newValue);
-        }
-        else
-        {
-            throw new InvalidCastException("Expected ICurrencySharedModel, but received something else.");
-            //return;
-        }
+    private void Subscribe()
+    {
+        _eventBus.Subscribe<ClickerUpgradeBoughtSignal>(OnClickerUpgradeBought);
+    }
+
+    private void UnSubscribe()
+    {
+
     }
 }
