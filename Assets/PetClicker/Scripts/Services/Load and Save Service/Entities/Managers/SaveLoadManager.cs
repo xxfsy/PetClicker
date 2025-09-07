@@ -5,7 +5,7 @@ public class SaveLoadManager : BaseSaveLoadManager, ITickable
 {
     public float TickCooldownInSeconds { get; private set; }
 
-    public override void Initialize(List<ISaveableMVPController> saveableControllers, List<ISaveableModel> saveableSharedModels, BaseSaveLoadService saveLoadService, string saveKey)
+    public override void Initialize(List<BaseSaveableController> saveableControllers, List<BaseSaveableModel> saveableSharedModels, BaseSaveLoadService saveLoadService, string saveKey)
     {
         base.Initialize(saveableControllers, saveableSharedModels, saveLoadService, saveKey);
 

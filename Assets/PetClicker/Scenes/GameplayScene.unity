@@ -547,12 +547,14 @@ MonoBehaviour:
   _upgradeScreenRoot: {fileID: 323939822}
   _clickerViewPrefab: {fileID: 6856961360969018280, guid: a2c10259f6caad54a8edc98acfc7057a, type: 3}
   _autoClickerViewPrefab: {fileID: 3813823461591724911, guid: 3c13dd679784ff9429ab1976efd8a404, type: 3}
+  _upgradesShopViewPrefab: {fileID: 7497947643605474971, guid: 77322ec51e47bc644b6e5bcabe735681, type: 3}
   _moneyViewPrefab: {fileID: 8631962204989735911, guid: 33e9df7a8cfbd7d42a2b8d9ccf9e627f, type: 3}
   _saveLoadManagerPrefab: {fileID: 414687190837721323, guid: 0e4662bffebc3cc47a6fa1c84f55cfea, type: 3}
   _tickServicePrefab: {fileID: 7144156143555138112, guid: 7221bbbbc75a2cd4d9591e7cb4c78c47, type: 3}
   _uiScreenSwitcherServicePrefab: {fileID: 789305866667082292, guid: 5a9f0b76a5de51446a978140b085a516, type: 3}
   _tickCooldownForAutoClicker: 1
   _tickCooldownForSaveLoadManager: 30
+  _shopContentConfig: {fileID: 11400000, guid: 08fc6ec83404d404f98ceab586154875, type: 2}
 --- !u!4 &1563609374
 Transform:
   m_ObjectHideFlags: 0

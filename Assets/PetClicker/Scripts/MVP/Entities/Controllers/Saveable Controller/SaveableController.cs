@@ -1,15 +1,15 @@
-﻿public class SaveableController : BaseController, ISaveableMVPController
+﻿public class SaveableController : BaseSaveableController 
 {
-    public SaveableController(BaseModel model, BaseView view, BasePresenter presenter, BaseModel sharedModel = null) : base(model, view, presenter, sharedModel)
+    public SaveableController(BaseModel model, BaseView view, BasePresenter presenter, BaseModel sharedModel = null, BaseEventBus eventBus = null) : base(model, view, presenter, sharedModel, eventBus)
     { }
 
-    public void SaveLayers(BaseData baseData)
+    public override void SaveLayers(BaseData baseData)
     {
-        if (model is ISaveableModel saveableModel) saveableModel.SaveLayer(baseData);
+        if (model is BaseSaveableModel saveableModel) saveableModel.SaveLayer(baseData);
     }
 
-    public void LoadLayers(BaseData baseData)
+    public override void LoadLayers(BaseData baseData)
     {
-        if (model is ISaveableModel saveableModel) saveableModel.LoadLayer(baseData);
+        if (model is BaseSaveableModel saveableModel) saveableModel.LoadLayer(baseData);
     }
 }

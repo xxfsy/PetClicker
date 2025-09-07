@@ -6,16 +6,17 @@ public class TickService : BaseTickService
     [SerializeField] private float _tickIntervalInSeconds = 1f; // частота тика TickAll
 
     private WaitForSeconds _tickInterval;
+    private Coroutine _tickRoutine;
 
     private void OnEnable()
     {
         _tickInterval = new WaitForSeconds(_tickIntervalInSeconds);
-        StartCoroutine(TickRoutine());
+        _tickRoutine = StartCoroutine(TickRoutine());
     }
 
     private void OnDisable()
     {
-        StopCoroutine(TickRoutine());
+        StopCoroutine(_tickRoutine);
     }
 
     private IEnumerator TickRoutine()

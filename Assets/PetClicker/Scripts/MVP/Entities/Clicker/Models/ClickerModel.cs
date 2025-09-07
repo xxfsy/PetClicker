@@ -1,17 +1,25 @@
-﻿public class ClickerModel : BaseClickerModel, ISaveableModel
+﻿public class ClickerModel : BaseClickerModel
 {
-    public override void SetNewValueAfterClick(int newValue)
+    public override void SetNewClicksCountValue(int newValue)
     {
         ClicksCount = newValue;
 
-        view.DisplayNewDataFromModel(ClicksCount.ToString());
+        clickerView.DisplayNewClicksCountFromModel(ClicksCount.ToString());
     }
 
-    public void SaveLayer(BaseData baseData)
+    public override void SetNewValueForIncomePerClick(int newValue)
+    {
+        IncomePerClick = newValue;
+
+        clickerView.DisplayNewIncomePerClickFromModel(IncomePerClick.ToString());
+    }
+
+    public override void SaveLayer(BaseData baseData)
     {
         if (baseData is GameData gameData && gameData.ClicksCount != ClicksCount)
         {
             gameData.ClicksCount = ClicksCount;
+            gameData.ClickerIncomePerClick = IncomePerClick;
         }
         else
         {
@@ -19,13 +27,15 @@
         }
     }
 
-    public void LoadLayer(BaseData baseData)
+    public override void LoadLayer(BaseData baseData)
     {
         if (baseData is GameData gameData)
         {
             ClicksCount = gameData.ClicksCount;
+            IncomePerClick = gameData.ClickerIncomePerClick;
 
-            view.DisplayNewDataFromModel(ClicksCount.ToString());
+            clickerView.DisplayNewClicksCountFromModel(ClicksCount.ToString());
+            clickerView.DisplayNewIncomePerClickFromModel(IncomePerClick.ToString());
         }
         else
         {

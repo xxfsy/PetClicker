@@ -2,7 +2,7 @@
 {
     private readonly float _tickCooldownInSeconds;
 
-    public AutoClickerSaveableController(BaseModel model, BaseView view, BasePresenter presenter, float tickCooldown, BaseModel sharedModel = null) : base(model, view, presenter, sharedModel)
+    public AutoClickerSaveableController(BaseModel model, BaseView view, BasePresenter presenter, float tickCooldown, BaseModel sharedModel = null, BaseEventBus eventBus = null) : base(model, view, presenter, sharedModel, eventBus)
     {
         _tickCooldownInSeconds = tickCooldown;
     }

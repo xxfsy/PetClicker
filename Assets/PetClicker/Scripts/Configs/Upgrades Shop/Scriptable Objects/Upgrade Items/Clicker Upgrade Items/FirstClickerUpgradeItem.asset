@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22f9710629a28dc43aafc9a53d28ae24, type: 3}
   m_Name: FirstClickerUpgradeItem
   m_EditorClassIdentifier: 
+  <UpgradeName>k__BackingField: First Clicker Upgrade
   <Icon>k__BackingField: {fileID: 0}
   <Price>k__BackingField: 10
   <UpgradeValue>k__BackingField: 1

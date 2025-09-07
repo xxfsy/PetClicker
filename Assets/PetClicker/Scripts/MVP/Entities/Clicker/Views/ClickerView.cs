@@ -7,6 +7,9 @@ public class ClickerView : BaseClickerView
     private BaseClickerPresenter _clickerPresenter => presenter as BaseClickerPresenter;
 
     [SerializeField] private TextMeshProUGUI _clicksCountText;
+    [SerializeField] private TextMeshProUGUI _incomePerClickText;
+
+    [SerializeField] private string _prefixForIncomePerClick = "/click";
 
     [SerializeField] private Button _clickerButton;
 
@@ -25,8 +28,13 @@ public class ClickerView : BaseClickerView
         _clickerPresenter?.HandleClick();
     }
 
-    public override void DisplayNewDataFromModel(string newValue)
+    public override void DisplayNewClicksCountFromModel(string newValue)
     {
         _clicksCountText.SetText(newValue);
+    }
+
+    public override void DisplayNewIncomePerClickFromModel(string newValue)
+    {
+        _incomePerClickText.SetText(newValue + _prefixForIncomePerClick);
     }
 }
