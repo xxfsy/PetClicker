@@ -1,11 +1,7 @@
-﻿
-// от IUseEventBas я думаю наследоваться надо тут а не в BaseUpgradesShopPresenter, так как это часть реализации, мы можем писать разные презенторы для UpgradesShop кто-то может использовать eventBus, кто-то нет, в этом и прикол
-using System;
+﻿using System;
 
 public class UpgradesShopPresenter : BaseUpgradesShopPresenter, IUseEventBus 
 {
-    //поле которое прибавляется при покупке (+1 к купленным типа), сделать поле чтобы можно было в случае чего какие-то бафы может накидывать x2 там типа и тд, надо подумать как его сюда прокинуть
-
     private BaseEventBus _eventBus;
 
     public void SetEventBus(BaseEventBus eventBus)
@@ -29,7 +25,7 @@ public class UpgradesShopPresenter : BaseUpgradesShopPresenter, IUseEventBus
         {
             int newPurchasedCount = upgradesShopModel.UpgradesPurchasedCount[upgradeItem];
 
-            newPurchasedCount++; // временно так
+            newPurchasedCount++; 
 
             upgradesShopModel.SetNewPurchasedCount(upgradeItem, newPurchasedCount);
 

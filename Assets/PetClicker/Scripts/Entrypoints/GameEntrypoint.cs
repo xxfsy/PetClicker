@@ -48,7 +48,7 @@ public class GameEntrypoint : MonoBehaviour
         InitializeGame();
     }
 
-    private void InitializeGame() // Вообще надо по идее наверное создать какой-то интерфейс или что-то типа того чтобы у ентри поинта не было доступа к методам Intialize у слоев, чтобы нельзя было ничего тут проинициализировать, кроме shared моделей, ведь этим занимается контроллер.
+    private void InitializeGame() 
     {
         // Loading screen turning on
         _loadingScreenRoot.SetActive(true);
@@ -57,7 +57,7 @@ public class GameEntrypoint : MonoBehaviour
         BaseEventBus eventBus = new EventBus();
 
         // Shared models creating and initializing. Shared models - инициализируются тут, обычные модели - внутри контроллера
-        BaseCurrencySharedModel moneySharedModel = new MoneySharedModel(); // надо ли все переделывать под абстракцию текущего уровня как тут? будет ли так соблюдаться DIP? Надо ли тогда все остальные трио так же переделывать под BaseClickerModel вместо BaseModel и тд (?)
+        BaseCurrencySharedModel moneySharedModel = new MoneySharedModel(); 
         BaseCurrencyView moneyView = Instantiate(_moneyViewPrefab, _overlayScreenRoot.transform);
         moneySharedModel.Initialize(moneyView);
 

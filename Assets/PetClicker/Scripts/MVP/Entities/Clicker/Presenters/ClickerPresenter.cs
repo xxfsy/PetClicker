@@ -1,7 +1,7 @@
 ﻿
 public class ClickerPresenter : BaseClickerPresenter, IUseEventBus 
 {
-    // т.к. Presenter обрабатывает клики с вида и изменяет модель, то логика обновления денег должна лежать тут, а модель должна просто меняться, а не содержать в себе логику изменения денег
+    // т.к. Presenter обрабатывает клики с вида и изменяет модель, то логика обновления денег должна лежать тут (бизнес-логика), а модель должна просто меняться, а не содержать в себе логику изменения денег
 
     private BaseEventBus _eventBus;
 
@@ -45,6 +45,6 @@ public class ClickerPresenter : BaseClickerPresenter, IUseEventBus
 
     private void UnSubscribe()
     {
-
+        _eventBus.Unsubscribe<ClickerUpgradeBoughtSignal>(OnClickerUpgradeBought);
     }
 }

@@ -48,7 +48,6 @@ public class AutoClickerPresenter : BaseAutoClickerPresenter, IUseEventBus
 
     private void UnSubscribe()
     {
-
+        _eventBus.Unsubscribe<AutoClickerUpgradeBoughtSignal>(OnAutoClickerUpgradeBought);
     }
-
 }

@@ -1,6 +1,6 @@
 ﻿public abstract class BaseClickerPresenter : BaseUsingCurrencySharedModelPresenter
 {
-    protected BaseClickerModel clickerModel => model as BaseClickerModel; // мб еще так что-то вынести из реализаций как вот ссылка на слой после каста
+    protected BaseClickerModel clickerModel => model as BaseClickerModel; 
 
     public abstract void HandleClick();
 

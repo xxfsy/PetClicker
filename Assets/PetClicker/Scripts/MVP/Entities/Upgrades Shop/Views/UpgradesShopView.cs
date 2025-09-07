@@ -7,7 +7,7 @@ public class UpgradesShopView : BaseUpgradesShopView
 
     [SerializeField] private GameObject _gameObjectForUpgradeItemViews; //надо ли это выносить в абстрактный класс (?)
 
-    private Dictionary<BaseUpgradeItem, BaseUpgradeItemView> _upgradeItemsViews = new(); // тут под значением должен быть BaseUpgradeItemView или BaseView (?)
+    private Dictionary<BaseUpgradeItem, BaseUpgradeItemView> _upgradeItemsViews = new(); 
 
     public override void InitializeUpgradesShopView(BaseShopContent shopContentConfig)
     {
@@ -16,28 +16,19 @@ public class UpgradesShopView : BaseUpgradesShopView
         InitializeShopContent();
     }
 
-    public override void HandleDisplayNewUpgradeItemDataFromModel(BaseUpgradeItem upgradeItem, int newPurchasedCount) // метод перерисовки конкретной вьюшки через поиск по ключус словаря через ID? Параметры: id вьюшки, новое кол-во купленных апгрейдов данной вьюшки
+    public override void HandleDisplayNewUpgradeItemDataFromModel(BaseUpgradeItem upgradeItem, int newPurchasedCount) 
     {
         _upgradeItemsViews[upgradeItem].DisplayNewUpgradeItemDataFromModel(newPurchasedCount);
     }
 
     protected override void InitializeShopContent()
     {
-        int i = 0; //временно!
-
         foreach (BaseUpgradeItem upgradeItem in shopContentConfig.AutoClickerAndClickerUpgradeItems)
         {
-            //GameObject upgradeItemView = Instantiate(_upgradeItemViewPrefab.gameObject, _gameObjectForUpgradeItemViews.transform); // будет ли разница между _upgradeItemViewPrefab и _upgradeItemViewPrefab.gameObject; (?)
-
-            //upgradeItemView.transform.position += new Vector3(0,100 * i,0); // Для теста так сделал, потом надо сделать просто объект который сам групирует и ничего не двигать через скрипт
-
-            //сделал пока так ведь не двигаю трансформ и не нужен объект типа GameObject
             BaseUpgradeItemView upgradeItemView = Instantiate(_upgradeItemViewPrefab, _gameObjectForUpgradeItemViews.transform);
 
             upgradeItemView.InitializeUpgradeItemView(upgradeItem, HandleOnUpgradeItemViewInput);
             _upgradeItemsViews.Add(upgradeItem, upgradeItemView);
-
-            i++;
         }
     }
 

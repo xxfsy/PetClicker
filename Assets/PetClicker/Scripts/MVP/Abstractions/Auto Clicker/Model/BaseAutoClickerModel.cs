@@ -1,6 +1,6 @@
 ﻿public abstract class BaseAutoClickerModel : BaseSaveableModel
 {
-    protected BaseAutoClickerView autoClickerView => view as BaseAutoClickerView; // мб еще так что-то вынести из реализаций как вот ссылка на слой после каста
+    protected BaseAutoClickerView autoClickerView => view as BaseAutoClickerView; 
 
     public int IncomePerSecond { get; protected set; }
 
