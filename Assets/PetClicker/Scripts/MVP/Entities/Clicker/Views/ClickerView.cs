@@ -4,11 +4,10 @@ using UnityEngine.UI;
 
 public class ClickerView : BaseClickerView
 {
-    private BaseClickerPresenter _clickerPresenter => presenter as BaseClickerPresenter;
-
     [SerializeField] private TextMeshProUGUI _clicksCountText;
     [SerializeField] private TextMeshProUGUI _incomePerClickText;
 
+    [SerializeField] private string _prefixForClicksCount = "Clicks:";
     [SerializeField] private string _prefixForIncomePerClick = "/click";
 
     [SerializeField] private Button _clickerButton;
@@ -25,12 +24,12 @@ public class ClickerView : BaseClickerView
 
     protected override void OnClickerClicked()
     {
-        _clickerPresenter?.HandleClick();
+        clickerPresenter?.HandleClick();
     }
 
     public override void DisplayNewClicksCountFromModel(string newValue)
     {
-        _clicksCountText.SetText(newValue);
+        _clicksCountText.SetText(_prefixForClicksCount + " " + newValue);
     }
 
     public override void DisplayNewIncomePerClickFromModel(string newValue)

@@ -7,12 +7,7 @@ public class UpgradeItemView : BaseUpgradeItemView
 {
     private BaseUpgradeItem _upgradeItemConfig;
 
-    // надо ли это все снизу вынести в базовый класс?
-    private string _upgradeName;
-    private Sprite _icon;
-    private int _price;
-    private float _upgradeValue;
-
+    //подумать, может что-то из нижеперечисленных полей можно вынести в базовый класс
     private int _purchasedCount; // кол-во купленных улучшений
 
     [SerializeField] TextMeshProUGUI _upgradeNameText;
@@ -22,11 +17,15 @@ public class UpgradeItemView : BaseUpgradeItemView
 
     [SerializeField] private TextMeshProUGUI _purchasedCountText;
 
+    [SerializeField] private string _prefixForPrice = "$";
+    [SerializeField] private string _prefixForUpgradeValue = "+";
+
+    [SerializeField] private string _prefixForPurchasedCount = "Bought";
+
     [SerializeField] private Button _upgradeItemBuyButton;
     private UnityAction<BaseUpgradeItem> _actionAfterClick;
 
     public bool IsLocked { get; private set; } = false;
-    // надо ли это все сверху вынести в базовый класс?
 
     private void OnEnable()
     {
@@ -42,21 +41,16 @@ public class UpgradeItemView : BaseUpgradeItemView
     {
         _upgradeItemConfig = upgradeItemConfig;
 
-        _upgradeName = _upgradeItemConfig.UpgradeName;
-        _icon = _upgradeItemConfig.Icon;
-        _price = _upgradeItemConfig.Price;
-        _upgradeValue = _upgradeItemConfig.UpgradeValue;
-
         _actionAfterClick = actionAfterClick;
 
         DisplayInitializedData();
     }
 
-    public override void DisplayNewUpgradeItemDataFromModel(int newPurchasedCount) // Параметры: новое кол-во купленных апгрейдов данной вьюшки
+    public override void DisplayNewUpgradeItemDataFromModel(int newPurchasedCount) 
     {
         _purchasedCount = newPurchasedCount;
 
-        _purchasedCountText.SetText(_purchasedCount.ToString());
+        _purchasedCountText.SetText(_purchasedCount.ToString() + " " + _prefixForPurchasedCount);
     }
 
     public override void SetLocked(bool isLocked)
@@ -77,9 +71,9 @@ public class UpgradeItemView : BaseUpgradeItemView
 
     protected override void DisplayInitializedData()
     {
-        _upgradeNameText.SetText(_upgradeName);
-        _iconImage.sprite = _icon;
-        _priceText.SetText(_price.ToString());
-        _upgradeValueText.SetText(_upgradeValue.ToString());
+        _upgradeNameText.SetText(_upgradeItemConfig.UpgradeName);
+        _iconImage.sprite = _upgradeItemConfig.Icon;
+        _priceText.SetText(_upgradeItemConfig.Price.ToString() + " " + _prefixForPrice);
+        _upgradeValueText.SetText(_prefixForUpgradeValue + _upgradeItemConfig.UpgradeValue.ToString());
     }
 }

@@ -12,4 +12,3 @@ public abstract class BaseUpgradeItemView : BaseView // сделать BaseView 
 
     protected abstract void DisplayInitializedData();
 }
-// ???? Метод реакции на кнопку, как в кликере; Метод отрисовки заблокированной версии айтема с параметром бул, если тру то заблокирован если фолс то разблокирован (мб так сделать не знаю)

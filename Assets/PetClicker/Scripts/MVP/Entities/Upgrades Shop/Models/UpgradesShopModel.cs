@@ -4,8 +4,6 @@ using System.Linq;
 
 public class UpgradesShopModel : BaseUpgradesShopModel
 {
-
-
     public override void InitializeUpgradesShopModel(BaseShopContent shopContentConfig)
     {
         this.shopContentConfig = shopContentConfig;
@@ -24,24 +22,17 @@ public class UpgradesShopModel : BaseUpgradesShopModel
             {
                 switch (upgrade.Key) // Можно переделать потом на паттерн Визитер
                 {
-                    case AutoClickerUpgradeItem autoClickerUpgradeItem:
-                        //if (gameData.AutoClickerUpgradesPurchasedCount[autoClickerUpgradeItem.AutoClickerUpgradeType] != upgradesPurchasedCount[autoClickerUpgradeItem])
-                        //{
-                            gameData.AutoClickerUpgradesPurchasedCount[autoClickerUpgradeItem.AutoClickerUpgradeType] = upgradesPurchasedCount[autoClickerUpgradeItem];
-                        //}
+                    case AutoClickerUpgradeItem autoClickerUpgradeItem: // без проверки на переписывание того же значение чтобы если словарь пустой записать новое значение а не упасть в нулл референс
+                        gameData.AutoClickerUpgradesPurchasedCount[autoClickerUpgradeItem.AutoClickerUpgradeType] = upgradesPurchasedCount[autoClickerUpgradeItem];
                         break;
 
-                    case ClickerUpgradeItem clickerUpgradeItem:
-                        //if (gameData.ClickerUpgradesPurchasedCount[clickerUpgradeItem.ClickerUpgradeType] != upgradesPurchasedCount[clickerUpgradeItem])
-                        //{
-                            gameData.ClickerUpgradesPurchasedCount[clickerUpgradeItem.ClickerUpgradeType] = upgradesPurchasedCount[clickerUpgradeItem];
-                        //}
+                    case ClickerUpgradeItem clickerUpgradeItem: // без проверки на переписывание того же значение чтобы если словарь пустой записать новое значение а не упасть в нулл референс
+                        gameData.ClickerUpgradesPurchasedCount[clickerUpgradeItem.ClickerUpgradeType] = upgradesPurchasedCount[clickerUpgradeItem];
                         break;
 
                     default:
                         throw new ArgumentException(nameof(upgrade.Key));
                 }
-                //UnityEngine.Debug.Log("SavedUpgrade");
             }
         }
         else
@@ -73,7 +64,6 @@ public class UpgradesShopModel : BaseUpgradesShopModel
 
                 }
 
-                //UnityEngine.Debug.Log("LoadedUpgrade");
                 upgradesShopView.HandleDisplayNewUpgradeItemDataFromModel(upgradesPurchasedCountKey, upgradesPurchasedCount[upgradesPurchasedCountKey]);
             }
         }

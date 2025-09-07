@@ -26,11 +26,11 @@ public class AutoClickerPresenter : BaseAutoClickerPresenter, IUseEventBus
         //if (currencySharedModel == null)
         //    return;
 
-        float newValue = currencySharedModel.GetCurrentAmountOfCurrency();
+        int currencyAmount = currencySharedModel.CurrentAmount;
 
-        newValue += autoClickerModel.IncomePerSecond;
+        currencyAmount += autoClickerModel.IncomePerSecond;
 
-        currencySharedModel.SetNewCurrencyAmount(newValue);
+        currencySharedModel.SetNewCurrencyAmount(currencyAmount);
     }
 
     private void OnAutoClickerUpgradeBought(AutoClickerUpgradeBoughtSignal autoClickerUpgradeBoughtSignal)

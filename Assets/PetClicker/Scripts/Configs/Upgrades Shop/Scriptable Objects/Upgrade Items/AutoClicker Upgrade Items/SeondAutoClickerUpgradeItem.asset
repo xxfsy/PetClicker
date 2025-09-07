@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <UpgradeName>k__BackingField: Second Auto Clicker Upgrade
   <Icon>k__BackingField: {fileID: 0}
-  <Price>k__BackingField: 20
+  <Price>k__BackingField: 150
   <UpgradeValue>k__BackingField: 2
   <AutoClickerUpgradeType>k__BackingField: 1

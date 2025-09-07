@@ -4,8 +4,6 @@ using System;
 
 public class UpgradesShopPresenter : BaseUpgradesShopPresenter, IUseEventBus 
 {
-    // возможная бизнес логика: проверка баланса, хватает ли на покупку; Мб сделать какой-нибудь UpgradeService
-
     //поле которое прибавляется при покупке (+1 к купленным типа), сделать поле чтобы можно было в случае чего какие-то бафы может накидывать x2 там типа и тд, надо подумать как его сюда прокинуть
 
     private BaseEventBus _eventBus;
@@ -25,9 +23,9 @@ public class UpgradesShopPresenter : BaseUpgradesShopPresenter, IUseEventBus
         //if (currencySharedModel == null)
         //    return;
 
-        float currentMoneyAmount = currencySharedModel.GetCurrentAmountOfCurrency();
+        int currencyAmount = currencySharedModel.CurrentAmount;
 
-        if (currentMoneyAmount >= upgradeItem.Price)
+        if (currencyAmount >= upgradeItem.Price)
         {
             int newPurchasedCount = upgradesShopModel.UpgradesPurchasedCount[upgradeItem];
 
@@ -35,9 +33,9 @@ public class UpgradesShopPresenter : BaseUpgradesShopPresenter, IUseEventBus
 
             upgradesShopModel.SetNewPurchasedCount(upgradeItem, newPurchasedCount);
 
-            currentMoneyAmount -= upgradeItem.Price; // мб вынести в отдельный метод изменений шаред модели
+            currencyAmount -= upgradeItem.Price; // мб вынести в отдельный метод изменений шаред модели
 
-            currencySharedModel.SetNewCurrencyAmount(currentMoneyAmount);
+            currencySharedModel.SetNewCurrencyAmount(currencyAmount);
 
             switch (upgradeItem) // Можно наверное переделать потом на паттерн Визитер
             {

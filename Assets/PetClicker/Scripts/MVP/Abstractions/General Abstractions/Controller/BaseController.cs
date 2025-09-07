@@ -26,7 +26,7 @@
         view.Initialize(presenter);
 
         presenter.Initialize(model);
-        if (presenter is BaseUsingSharedModelPresenter usingSharedModelPresenter) usingSharedModelPresenter.SetSharedModel(sharedModel); // убрал проверку на null так как если shared model нулл и ты используешь BaseUsingSharedModelPresenter, то тогда либо прокинь шаред модел либо используй BasePresenter 
+        if (presenter is BaseUsingCurrencySharedModelPresenter usingSharedModelPresenter) usingSharedModelPresenter.SetCurrencySharedModel(sharedModel); // убрал проверку на null так как если shared model нулл и ты используешь BaseUsingSharedModelPresenter, то тогда либо прокинь шаред модел либо используй BasePresenter 
         if (presenter is IUseEventBus usesEventBusPresenter) usesEventBusPresenter.SetEventBus(eventBus); // норм то что тут проверка или нет? или надо в отдельных контроллерах проверку такую делать, но тогда повтор кода будет
        
     }

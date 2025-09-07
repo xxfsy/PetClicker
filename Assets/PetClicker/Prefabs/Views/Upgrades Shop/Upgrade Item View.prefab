@@ -129,6 +129,9 @@ MonoBehaviour:
   _priceText: {fileID: 2517685442460886397}
   _upgradeValueText: {fileID: 1137521640202164998}
   _purchasedCountText: {fileID: 541343566432568682}
+  _prefixForPrice: $
+  _prefixForUpgradeValue: +
+  _prefixForPurchasedCount: Bought
   _upgradeItemBuyButton: {fileID: 6834876529500128380}
 --- !u!1 &707383585226789077
 GameObject:
@@ -204,8 +207,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4281794304
+  m_fontColor: {r: 0, g: 1, b: 0.21010637, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -442,7 +445,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.17791748, y: -0.0025024}
+  m_AnchoredPosition: {x: -0.17791748, y: -0.0025024414}
   m_SizeDelta: {x: 0.1294, y: -0.0045166}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2894004639082512993
@@ -557,8 +560,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278236159
+  m_fontColor: {r: 1, g: 0.70148605, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -814,8 +817,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -950,8 +953,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

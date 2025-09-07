@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _autoClickerAndClickerUpgradeItems:
   - {fileID: 11400000, guid: d809b36477ef24542bb630c6edeed022, type: 2}
-  - {fileID: 11400000, guid: 972bd1f5bedd2f64fb0e2a4cef2586b3, type: 2}
   - {fileID: 11400000, guid: a32839223a85b2b44aa5aab5e98dab4a, type: 2}
+  - {fileID: 11400000, guid: 972bd1f5bedd2f64fb0e2a4cef2586b3, type: 2}
   - {fileID: 11400000, guid: c7ae3afbc4c57b243bb39990ebfc02b3, type: 2}

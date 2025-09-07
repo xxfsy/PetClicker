@@ -25,9 +25,9 @@ public class ClickerPresenter : BaseClickerPresenter, IUseEventBus
         clickerModel.SetNewClicksCountValue(currentClicksCount);
 
         // мб вынести в отдельный метод изменений шаред модели
-        float currentCurrencyAmount = currencySharedModel.GetCurrentAmountOfCurrency(); 
-        currentCurrencyAmount += clickerModel.IncomePerClick;
-        currencySharedModel.SetNewCurrencyAmount(currentCurrencyAmount);
+        int currencyAmount = currencySharedModel.CurrentAmount; 
+        currencyAmount += clickerModel.IncomePerClick;
+        currencySharedModel.SetNewCurrencyAmount(currencyAmount);
     }
 
     private void OnClickerUpgradeBought(ClickerUpgradeBoughtSignal autoClickerUpgradeBoughtSignal)

@@ -1,24 +1,17 @@
 ﻿public class MoneySharedModel : BaseCurrencySharedModel
 {
-    private float _amountOfMoney;
-
-    public override float GetCurrentAmountOfCurrency()
+    public override void SetNewCurrencyAmount(int newValue)
     {
-        return _amountOfMoney;
-    }
+        CurrentAmount = newValue;
 
-    public override void SetNewCurrencyAmount(float newValue)
-    {
-        _amountOfMoney = newValue;
-
-        currencyView.DisplayNewCurrencyAmountFromSharedModel(_amountOfMoney.ToString());
+        currencyView.DisplayNewCurrencyAmountFromSharedModel(CurrentAmount.ToString());
     }
 
     public override void SaveLayer(BaseData baseData)
     {
-        if (baseData is GameData gameData && gameData.AmountOfMoney != _amountOfMoney)
+        if (baseData is GameData gameData && gameData.AmountOfMoney != CurrentAmount)
         {
-            gameData.AmountOfMoney = _amountOfMoney;
+            gameData.AmountOfMoney = CurrentAmount;
         }
         else
         {
@@ -30,9 +23,9 @@
     {
         if (baseData is GameData gameData)
         {
-            _amountOfMoney = gameData.AmountOfMoney;
+            CurrentAmount = gameData.AmountOfMoney;
 
-            currencyView.DisplayNewCurrencyAmountFromSharedModel(_amountOfMoney.ToString());
+            currencyView.DisplayNewCurrencyAmountFromSharedModel(CurrentAmount.ToString());
         }
         else
         {
